@@ -14,6 +14,7 @@ type Mutation {
 	createPost(body: String!): Post!
 	deletePost(postId: Int!): String!
 	logout: String!
+	validateJwt: User!
 }
 `;
 

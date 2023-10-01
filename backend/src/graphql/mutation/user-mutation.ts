@@ -68,8 +68,28 @@ const logout = async (_: unknown, __: unknown, context: { res: express.Response 
     res.clearCookie('token');
     return 'Logged out successfully.';
 };
+
+const validateJwt = async (_: unknown, __: unknown, context: { res: express.Response, userId: number | null }) => {
+    const { res, userId } = context;
+
+    if (!userId) {
+        res.clearCookie('token');
+       return throwError('Invalid Credentials.', 'INVALID_CREDENTIALS');
+    }
+
+    console.log("validate", userId);
+
+    return await db.user.findUnique({
+        where: {
+            id: userId
+        }
+    });
+};
+
+
 export const userMutation = {
     login,
     register,
-    logout
+    logout,
+    validateJwt
 };

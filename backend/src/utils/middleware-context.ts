@@ -1,12 +1,14 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import { throwError } from './throw-error.js';
 
 
 export const context = async ({req, res}: { req: Request; res: Response }) => {
-    const ctx: { userId: number | null, res: Response } = {
+    const ctx: { userId: number | null, res: Response, req:Request } = {
         userId: null,
         //this enables us to access response and set cookies in the context
-        res
+        res,
+        req
     };
     try {
         if (req.cookies['token']) {
@@ -18,6 +20,7 @@ export const context = async ({req, res}: { req: Request; res: Response }) => {
         }
     } catch (e) {
         console.log('Invalid token');
+        throwError('Invalid token', 'INVALID_TOKEN')
     }
     return ctx;
 };

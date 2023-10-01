@@ -4,7 +4,6 @@ import { throwError } from '../../utils/throw-error.js';
 
 const createPost = async (_: unknown, {body}: { body: string }, context: { userId: number, res: Response }) => {
     const {userId, res} = context;
-
     if (!userId) {
         // clear the cookie if the token is invalid
         res.clearCookie('token');
