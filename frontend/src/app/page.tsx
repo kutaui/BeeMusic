@@ -1,11 +1,10 @@
 'use client';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useContext, useEffect, useState } from 'react';
-import { LOGIN_MUTATION, VALIDATE_JWT_MUTATION, LOGOUT_MUTATION } from '@/graphql/mutations/user-mutations';
+import { LOGIN_MUTATION, VALIDATE_JWT_MUTATION, LOGOUT_MUTATION } from '@/graphql/mutations/user-mutation';
 import { AuthContext } from '@/providers';
-import { deleteCookie,  setCookie } from 'cookies-next';
-
-import { validateUser } from '@/utils/validate-user';
+import { deleteCookie, setCookie } from 'cookies-next';
+import { validateUser } from '@/lib/validate-user';
 
 export default function Home() {
     const [email, setEmail] = useState('o@gmail.com');
@@ -17,19 +16,12 @@ export default function Home() {
 
     useEffect(() => {
         (async () => {
-            try {
-                const validatedUser = await validateUser(validateJwt, user);
-console.log(validatedUser)
-                if (!validatedUser || error) {
-                    deleteCookie('USER');
-                    setUser(null);
-                    await logout();
-                }
-            } catch (error) {
+            const validatedUser = await validateUser(validateJwt, user);
+            console.log(validatedUser);
+            if (!validatedUser || error) {
                 deleteCookie('USER');
                 setUser(null);
                 await logout();
-                console.error('Login error:', error);
             }
         })();
     }, []);

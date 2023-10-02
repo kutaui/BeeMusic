@@ -1,6 +1,6 @@
 import { deleteCookie, getCookie } from 'cookies-next';
 
-export const validateUser = async (validateFunc: any, user: any) => {
+export const validateUser = async (validateFunc: any,user:any) => {
     try {
         const {data} = await validateFunc();
         const cookie = getCookie('USER');
