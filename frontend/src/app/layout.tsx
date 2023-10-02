@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Providers } from '@/providers';
+import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -12,7 +13,11 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
     return (
         <html lang="en">
         <Providers>
-            <body className="max-w-[1444px] mx-auto">{children}</body>
+            <body className="max-w-[1444px] mx-auto">
+            {children}
+            < Toaster/>
+
+            </body>
         </Providers>
         </html>
     );

@@ -8,22 +8,20 @@ export async function middleware(req: NextRequest) {
     if (req.nextUrl.pathname.startsWith('/home') && !cookie) {
         // Redirect to login page if the cookie is missing
         return NextResponse.redirect(
-            `${process.env.NEXT_PUBLIC_FRONTEND_URL}/auth`
+            `${process.env.NEXT_PUBLIC_FRONTEND_URL}/login`
         );
     }
 
-  /*  if ((req.nextUrl.pathname.startsWith('/login') || req.nextUrl.pathname === '/') && cookie) {
+    if ((req.nextUrl.pathname.startsWith('/login') || req.nextUrl.pathname.startsWith('/register')) && cookie) {
         return NextResponse.redirect(
             `${process.env.NEXT_PUBLIC_FRONTEND_URL}/home`
         );
-    }*/
-
-
+    }
 
     return response;
 }
 
 export const config = {
-    matcher: ['/', '/home', '/login']
+    matcher: ['/', '/home', '/login',"/register"]
 
 };

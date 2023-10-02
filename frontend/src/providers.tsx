@@ -32,7 +32,6 @@ export const Providers = ({children}: { children: React.ReactNode }) => {
     useEffect(() => {
         const storedUser = getCookie('USER');
         const userInCookie = storedUser ? JSON.parse(storedUser) : null;
-        console.log(userInCookie)
         setUser(userInCookie);
     },[])
 

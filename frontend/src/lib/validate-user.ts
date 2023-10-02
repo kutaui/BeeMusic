@@ -1,13 +1,17 @@
-import { deleteCookie, getCookie } from 'cookies-next';
+'use client';
+import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 
-export const validateUser = async (validateFunc: any,user:any) => {
+
+export const validateUser = async (validateFunc: any, user: any) => {
     try {
         const {data} = await validateFunc();
         const cookie = getCookie('USER');
-        const userInCookie = cookie ? JSON.parse(cookie) : null;
+        if (data) {
+            setCookie('USER', JSON.stringify(data.validateJwt));
+            return true;
+        }
 
-        return !(data.validateJwt.email !== userInCookie.email || data.validateJwt.username !== userInCookie.username);
-
+        return false;
     } catch (error: any) {
         deleteCookie('USER');
 
@@ -17,3 +21,4 @@ export const validateUser = async (validateFunc: any,user:any) => {
         return error;
     }
 };
+

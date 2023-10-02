@@ -2,32 +2,37 @@
 import { useContext, useEffect } from 'react';
 import { AuthContext } from '@/providers';
 import { useMutation } from '@apollo/client';
-import { VALIDATE_JWT_MUTATION } from '@/graphql/mutations/user-mutation';
+import { LOGOUT_MUTATION, VALIDATE_JWT_MUTATION } from '@/graphql/mutations/user-mutation';
 import { useRouter } from 'next/navigation';
 import { validateUser } from '@/lib/validate-user';
-import { getCookie } from 'cookies-next';
+import { deleteCookie, getCookie } from 'cookies-next';
+import { toast } from '@/components/ui/use-toast';
 
 export default function Try() {
-    const {push} = useRouter();
+    const [validateJwt, {error}] = useMutation(VALIDATE_JWT_MUTATION);
+    const [logout] = useMutation(LOGOUT_MUTATION);
     const {user, setUser} = useContext(AuthContext);
-    const [validateJwt] = useMutation(VALIDATE_JWT_MUTATION);
+    const {push} = useRouter();
 
     useEffect(() => {
         (async () => {
-            try {
-                const isTokenValid = await validateUser(validateJwt, user);
-                if (!isTokenValid) {
-                    push('/login');
-                }
-            } catch (error) {
-                console.error('Login error:', error);
+            const validatedUser = await validateUser(validateJwt, user);
+            if (!validatedUser || error) {
+                toast({
+                    title: 'Something went wrong',
+                    description: 'Please login again',
+                })
+                deleteCookie('USER');
+                setUser(null);
+                await logout();
             }
         })();
     }, []);
 
+
     return (
         <main className="">
-            <h2>{user.email && 'working'}</h2>
+            hide
         </main>
     );
 }
