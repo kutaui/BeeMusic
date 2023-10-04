@@ -97,8 +97,6 @@ const validateJwt = async (
     return throwError("Invalid Credentials.", "INVALID_CREDENTIALS");
   }
 
-  console.log("validate", userId);
-
   return db.user.findUnique({
     where: {
       id: userId,

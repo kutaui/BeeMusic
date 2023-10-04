@@ -173,19 +173,6 @@ export default function RegisterPage() {
   return (
     <>
       <div className="relative flex justify-center pb-10">
-        <Link
-          href="/"
-          className="font-bold w-[12%] max-w-[60px] h-10 mt-[5%] absolute left-10"
-        >
-          <Image
-            width={40}
-            height={40}
-            src="/icons/return.png"
-            alt="Go back icon"
-            className="w-full"
-          />
-        </Link>
-
         <div className="font-[Montserrat] text-3xl flex flex-col items-start pt-[30%]">
           <h1 className="font-bold pb-2">Ready to jam with us?</h1>
           <h2>Welcome aboard!</h2>

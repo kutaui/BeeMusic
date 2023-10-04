@@ -4,7 +4,7 @@ import { userType } from "./user.js";
 const baseTypeDefs = `
 type Query {
 	users: [User!]
-	user(userId: ID): User
+	user(username: String!): User!
 	posts: [Post!]
 	postsByUser: [Post]!
 }

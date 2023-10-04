@@ -7,22 +7,17 @@ export const UserQuery = {
     return db.user.findMany();
   },
   user: async (
-    _: unknown,
-    __: unknown,
-    context: { userId: number; res: Response },
+    _: any,
+    { username }: { username: string },
+    { res }: { res: Response },
   ) => {
-    // Get the user id from the context
-    const { userId, res } = context;
-
-    if (!userId) {
-      // clear the cookie if the token is invalid
-      res.clearCookie("token");
-      return throwError("Invalid JWT token.", "INVALID_TOKEN");
-    }
-    return db.user.findUnique({
-      where: {
-        id: userId,
-      },
+    const user = await db.user.findUnique({
+      where: { username },
+      include: { posts: true },
     });
+    if (!user) {
+      return throwError("User Not Found", "USER_NOT_FOUND");
+    }
+    return user;
   },
 };

@@ -9,7 +9,7 @@ import {
 import { validateUser } from "@/lib/validate-user";
 import { deleteCookie } from "cookies-next";
 import { toast } from "@/components/ui/use-toast";
-import { GET_POSTS, GET_POSTS_BY_USER } from "@/graphql/queries/post-query";
+import { GET_POSTS } from "@/graphql/queries/post-query";
 import PostCard from "@/components/post-card";
 
 export default function Try() {
@@ -17,7 +17,6 @@ export default function Try() {
   const [logout] = useMutation(LOGOUT_MUTATION);
   const { user, setUser } = useContext(AuthContext);
   const { data: posts } = useQuery(GET_POSTS);
-  const { data: userPosts } = useQuery(GET_POSTS_BY_USER);
 
   useEffect(() => {
     (async () => {
@@ -33,10 +32,9 @@ export default function Try() {
       }
     })();
   }, [error, logout, setUser, user, validateJwt]);
-
   return (
     <main className="w-full">
-      {posts?.posts?.map((post) => (
+      {posts?.posts?.map((post: Post) => (
         <PostCard
           key={post.id}
           title={post.title}
@@ -44,6 +42,7 @@ export default function Try() {
           image={post.image}
           url={post.url}
           provider={post.provider}
+          username={post.user.username}
         />
       ))}
     </main>

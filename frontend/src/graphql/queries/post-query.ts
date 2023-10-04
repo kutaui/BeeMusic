@@ -9,7 +9,6 @@ export const GET_POSTS = gql`
       url
       description
       image
-
       user {
         username
       }
@@ -21,7 +20,11 @@ export const GET_POSTS_BY_USER = gql`
   query GetPostsByUser {
     postsByUser {
       id
-      body
+      title
+      provider
+      url
+      description
+      image
       user {
         username
       }

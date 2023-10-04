@@ -23,6 +23,7 @@ export default function SpotifyPreview({
           width={100}
           height={100}
           alt="Spotify Song Image"
+          placeholder="empty"
           className="rounded-tl-xl rounded-bl-xl"
         />
         <div className="flex flex-col p-3">
