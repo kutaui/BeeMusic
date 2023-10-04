@@ -1,7 +1,12 @@
 export const postType = `
+
 type Post {
 	id: ID!
-	body: String!
+    title: String!
+    description: String!
+    image: String!
+    url: String!
+    provider: String!
 	user: User!
 	userId: ID!
 	createdAt: String

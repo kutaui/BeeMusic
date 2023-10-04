@@ -1,13 +1,7 @@
-'use client';
+"use client";
 
-export default function Home() {
+const App = () => {
+  return <div></div>;
+};
 
-
-
-
-    return (
-        <main className="">
-
-        </main>
-    );
-}
+export default App;

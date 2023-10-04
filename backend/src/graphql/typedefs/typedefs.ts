@@ -1,11 +1,12 @@
-import { postType } from './post.js';
-import { userType } from './user.js';
+import { postType } from "./post.js";
+import { userType } from "./user.js";
 
 const baseTypeDefs = `
 type Query {
 	users: [User!]
 	user(userId: ID): User
 	posts: [Post!]
+	postsByUser: [Post]!
 }
 
 type Mutation {
@@ -18,4 +19,4 @@ type Mutation {
 }
 `;
 
-export const typeDefs = [baseTypeDefs, postType, userType].join('\n');
+export const typeDefs = [baseTypeDefs, postType, userType].join("\n");
