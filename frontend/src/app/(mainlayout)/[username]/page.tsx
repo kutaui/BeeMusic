@@ -8,18 +8,17 @@ import ProfileCard from "@/components/profile-card";
 
 export default function UserPage() {
   const params = useParams();
-  const { data: user } = useQuery(GET_USER, {
+  const { data } = useQuery(GET_USER, {
     variables: { username: params.username },
   });
 
-  console.log(user?.user);
   return (
     <main className="">
-      <ProfileCard username={user?.user.username} />
+      <ProfileCard username={data?.user.username} />
       <div className="flex justify-center border-b p-6">
-        <h2 className="font-bold text-xl p-4">{user?.user.username}'s Posts</h2>
+        <h2 className="font-bold text-xl p-4">{data?.user.username}'s Posts</h2>
       </div>
-      {user?.user.posts?.map((post) => (
+      {data?.user.posts?.map((post: Post) => (
         <PostCard
           key={post.id}
           title={post.title}
@@ -27,7 +26,8 @@ export default function UserPage() {
           image={post.image}
           url={post.url}
           provider={post.provider}
-          username={user?.user.username}
+          username={data?.user.username}
+          postId={post.id}
         />
       ))}
     </main>

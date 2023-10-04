@@ -1,4 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 type SpotifyPreviewProps = {
   title: string;
@@ -15,9 +18,13 @@ export default function SpotifyPreview({
   image,
   provider,
 }: SpotifyPreviewProps) {
+  const handleSpotifyClick = (event: React.ChangeEvent<EventTarget>) => {
+    event.stopPropagation();
+  };
+
   return (
-    <a href={url}>
-      <div className="border flex f rounded-xl">
+    <Link href={url} target="_blank" onClick={handleSpotifyClick} passHref>
+      <div className="border flex f rounded-xl hover:bg-gray-200">
         <Image
           src={image}
           width={100}
@@ -34,6 +41,6 @@ export default function SpotifyPreview({
           <h4 className="text-gray-500">{description}</h4>
         </div>
       </div>
-    </a>
+    </Link>
   );
 }

@@ -31,3 +31,19 @@ export const GET_POSTS_BY_USER = gql`
     }
   }
 `;
+
+export const GET_POST = gql`
+  query GetPost($id: Int!) {
+    post(id: $id) {
+      id
+      title
+      provider
+      url
+      description
+      image
+      user {
+        username
+      }
+    }
+  }
+`;

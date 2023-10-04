@@ -7,13 +7,13 @@ import Link from "next/link";
 
 export default function Search() {
   const [searchInput, setSearchInput] = useState("");
-  const { data: users } = useQuery(GET_USERS);
+  const { data }: { data: { users: User[] } | undefined } = useQuery(GET_USERS);
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
   };
 
-  const filteredUsers = users?.users?.filter((user) => {
+  const filteredUsers = data?.users?.filter((user: User) => {
     return user.username.toLowerCase().includes(searchInput.toLowerCase());
   });
 
@@ -21,7 +21,7 @@ export default function Search() {
     <main>
       <Input placeholder="Search Users" onChange={handleSearch} />
       {searchInput &&
-        filteredUsers?.map((user) => (
+        filteredUsers?.map((user: User) => (
           <Link
             key={user.username}
             passHref

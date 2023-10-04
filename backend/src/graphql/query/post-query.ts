@@ -31,4 +31,19 @@ export const PostQuery = {
       },
     });
   },
+  post: async (_: unknown, args: { id: number }) => {
+    const { id } = args;
+    try {
+      return db.post.findUnique({
+        where: {
+          id,
+        },
+        include: {
+          user: true,
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  },
 };

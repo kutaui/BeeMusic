@@ -1,3 +1,5 @@
+"use client";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -10,7 +12,12 @@ import SpotifyPreview from "@/components/spotify-preview";
 import Image from "next/image";
 import Link from "next/link";
 
-function PostCardFooter() {
+type PostCardFooterProps = {
+  postId: number;
+  username: string;
+};
+
+function PostCardFooter({ postId, username }: PostCardFooterProps) {
   return (
     <div className="flex justify-around w-full items-center">
       <Image
@@ -20,12 +27,14 @@ function PostCardFooter() {
         alt="Like Icon"
         className="h-6 w-auto"
       />
-      <Image
-        src="/icons/comment.png"
-        width={25}
-        height={25}
-        alt="Comment Icon"
-      />
+      <Link passHref href="/[username]/[postId]" as={`/${username}/${postId}`}>
+        <Image
+          src="/icons/comment.png"
+          width={25}
+          height={25}
+          alt="Comment Icon"
+        />
+      </Link>
     </div>
   );
 }
@@ -37,6 +46,7 @@ type PostCardProps = {
   url: string;
   provider: string;
   username: string;
+  postId: number;
 };
 
 export default function PostCard({
@@ -46,9 +56,20 @@ export default function PostCard({
   image,
   provider,
   username,
+  postId,
 }: PostCardProps) {
+  const { push } = useRouter();
+
+  const onCardClick = (event: React.ChangeEvent<EventTarget>) => {
+    event.stopPropagation();
+    push(`http://localhost:3000/${username}/${postId}`);
+  };
+
   return (
-    <Card className="border-b-[1px] ">
+    <Card
+      className="border-b-[1px] hover:bg-gray-100 hover:cursor-pointer "
+      onClick={onCardClick}
+    >
       <CardHeader className="flex flex-row w-[80%]">
         <Link
           passHref
@@ -86,7 +107,7 @@ export default function PostCard({
         />
       </CardContent>
       <CardFooter>
-        <PostCardFooter />
+        <PostCardFooter username={username} postId={postId} />
       </CardFooter>
     </Card>
   );

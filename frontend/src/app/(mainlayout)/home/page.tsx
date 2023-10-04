@@ -16,7 +16,7 @@ export default function Try() {
   const [validateJwt, { error }] = useMutation(VALIDATE_JWT_MUTATION);
   const [logout] = useMutation(LOGOUT_MUTATION);
   const { user, setUser } = useContext(AuthContext);
-  const { data: posts } = useQuery(GET_POSTS);
+  const { data }: { data: { posts: Post[] } | undefined } = useQuery(GET_POSTS);
 
   useEffect(() => {
     (async () => {
@@ -34,7 +34,7 @@ export default function Try() {
   }, [error, logout, setUser, user, validateJwt]);
   return (
     <main className="w-full">
-      {posts?.posts?.map((post: Post) => (
+      {data?.posts?.map((post: Post) => (
         <PostCard
           key={post.id}
           title={post.title}
@@ -43,6 +43,7 @@ export default function Try() {
           url={post.url}
           provider={post.provider}
           username={post.user.username}
+          postId={post.id}
         />
       ))}
     </main>

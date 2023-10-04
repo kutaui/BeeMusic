@@ -6,7 +6,7 @@ type ProfileCardProps = {
 
 export default function ProfileCard({ username }: ProfileCardProps) {
   return (
-    <div className="flex flex-col items-center p-4 border-t ">
+    <div className="flex flex-col items-center p-4 border-t border-b">
       <Avatar className="w-20 h-20">
         <AvatarImage
           src="https://github.com/shadcn.png"

@@ -7,6 +7,7 @@ type Query {
 	user(username: String!): User!
 	posts: [Post!]
 	postsByUser: [Post]!
+	post(id: Int!): Post!
 }
 
 type Mutation {
