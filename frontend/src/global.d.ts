@@ -7,7 +7,7 @@ type Post = {
   provider: string;
   user: User;
   userId: number;
-  comments: Comment[];
+  comments: Reply[];
   likes: Like[];
   createdAt: string;
 };
@@ -18,11 +18,11 @@ type User = {
   email: string;
   password: string;
   posts: Post[];
-  comments: Comment[];
+  comments: Reply[];
   likes: Like[];
 };
 
-type Comment = {
+type Reply = {
   id: number;
   body: string;
   user: User;
@@ -38,6 +38,6 @@ type Like = {
   userId: number;
   post: Post;
   postId: number;
-  comment: Comment;
+  comment: Reply;
   commentId: number;
 };

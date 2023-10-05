@@ -16,7 +16,9 @@ export default function UserPage() {
     <main className="">
       <ProfileCard username={data?.user.username} />
       <div className="flex justify-center border-b p-6">
-        <h2 className="font-bold text-xl p-4">{data?.user.username}'s Posts</h2>
+        <h2 className="font-bold text-xl p-4">
+          {data?.user.username}`&apos;`s Posts
+        </h2>
       </div>
       {data?.user.posts?.map((post: Post) => (
         <PostCard

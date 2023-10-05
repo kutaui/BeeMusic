@@ -44,6 +44,10 @@ export const GET_POST = gql`
       user {
         username
       }
+      comments {
+        id
+        body
+      }
     }
   }
 `;

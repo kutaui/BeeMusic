@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { redirect } from "next/navigation";
+import React from 'react';
 
 type SpotifyPreviewProps = {
   title: string;

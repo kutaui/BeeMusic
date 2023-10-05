@@ -40,6 +40,7 @@ export const PostQuery = {
         },
         include: {
           user: true,
+          comments: true,
         },
       });
     } catch (e) {
