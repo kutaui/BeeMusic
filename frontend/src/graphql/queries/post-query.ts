@@ -12,6 +12,15 @@ export const GET_POSTS = gql`
       user {
         username
       }
+      comments {
+        id
+        body
+      }
+      likes {
+        id
+        postId
+        userId
+      }
     }
   }
 `;
@@ -27,6 +36,15 @@ export const GET_POSTS_BY_USER = gql`
       image
       user {
         username
+      }
+      likes {
+        id
+        postId
+        userId
+      }
+      comments {
+        id
+        body
       }
     }
   }
@@ -47,6 +65,11 @@ export const GET_POST = gql`
       comments {
         id
         body
+      }
+      likes {
+        id
+        postId
+        userId
       }
     }
   }

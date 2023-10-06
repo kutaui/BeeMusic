@@ -155,21 +155,21 @@ export default function RegisterPage() {
   const [validateJwt, { error }] = useMutation(VALIDATE_JWT_MUTATION);
   const [logout] = useMutation(LOGOUT_MUTATION);
   const { user, setUser } = useContext(AuthContext);
-  const { push } = useRouter();
-
+  const { push, refresh } = useRouter();
   useEffect(() => {
     (async () => {
-      const validatedUser = await validateUser(validateJwt, user);
-      if (!validatedUser || error) {
+      const validatedUser = await validateUser(validateJwt);
+
+      if (!validatedUser) {
         deleteCookie("USER");
         setUser(null);
         await logout();
+        refresh();
       } else {
         push("/home");
       }
     })();
   }, []);
-
   return (
     <>
       <div className="relative flex justify-center pb-10">

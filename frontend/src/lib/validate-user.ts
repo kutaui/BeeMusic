@@ -1,7 +1,7 @@
 "use client";
 import { deleteCookie, setCookie } from "cookies-next";
 
-export const validateUser = async (validateFunc: any, user: any) => {
+export const validateUser = async (validateFunc: any) => {
   try {
     const { data } = await validateFunc();
     if (data) {

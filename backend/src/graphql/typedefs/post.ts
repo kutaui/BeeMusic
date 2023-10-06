@@ -9,7 +9,8 @@ type Post {
     provider: String!
 	user: User!
 	userId: ID!
-	comments: [Comment!]!
+	comments: [Comment]!
+	likes: [Like]!
 	createdAt: String
 }
 `;

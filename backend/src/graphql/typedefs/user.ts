@@ -4,5 +4,7 @@ type User {
 	username: String!
 	email: String!
 	posts: [Post]
+	comments: [Comment]
+	likes: [Like]
 }
-`
+`;

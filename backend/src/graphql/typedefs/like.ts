@@ -1,7 +1,7 @@
 export const likeType = `
     type Like {
         id: ID!
-        user: User!
+        user: User
         userId: ID!
         post: Post!
         postId: ID!

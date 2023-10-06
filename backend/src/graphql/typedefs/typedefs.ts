@@ -1,12 +1,13 @@
 import { postType } from "./post.js";
 import { userType } from "./user.js";
 import { commentType } from "./comment.js";
+import { likeType } from "./like.js";
 
 const baseTypeDefs = `
 type Query {
-	users: [User!]
+	users: [User]!
 	user(username: String!): User!
-	posts: [Post!]
+	posts: [Post]!
 	postsByUser: [Post]!
 	commentsByPost(postId: Int!): [Comment]!
 	post(id: Int!): Post!
@@ -17,12 +18,17 @@ type Mutation {
 	register(email: String!, username: String!, password: String!): User!
 	createPost(body: String!): Post!
 	createComment(postId: Int!, body: String!): Comment!
+	createLike(postId: Int!): String!
 	deletePost(postId: Int!): String!
 	logout: String!
 	validateJwt: User!
 }
 `;
 
-export const typeDefs = [baseTypeDefs, postType, userType, commentType].join(
-  "\n",
-);
+export const typeDefs = [
+  baseTypeDefs,
+  postType,
+  userType,
+  commentType,
+  likeType,
+].join("\n");

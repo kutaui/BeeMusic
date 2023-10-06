@@ -13,7 +13,7 @@ export const UserQuery = {
   ) => {
     const user = await db.user.findUnique({
       where: { username },
-      include: { posts: true },
+      include: { posts: true, comments: true, likes: true },
     });
     if (!user) {
       return throwError("User Not Found", "USER_NOT_FOUND");

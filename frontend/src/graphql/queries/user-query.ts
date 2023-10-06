@@ -20,6 +20,15 @@ export const GET_USER = gql`
         description
         image
       }
+      likes {
+        id
+        userId
+        postId
+      }
+      comments {
+        id
+        body
+      }
     }
   }
 `;

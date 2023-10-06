@@ -2,49 +2,61 @@ import { db } from "../../utils/db.js";
 import { throwError } from "../../utils/throw-error.js";
 import { Response } from "express";
 
-export const PostQuery = {
-  posts: async () => {
+const posts = async () => {
+  try {
     return db.post.findMany({
       include: {
         user: true,
+        likes: true,
+        comments: true,
       },
     });
-  },
-  postsByUser: async (
-    _: unknown,
-    __: unknown,
-    context: { userId: number; res: Response },
-  ) => {
-    const { userId, res } = context;
+  } catch (e) {
+    console.log(e);
+  }
+};
 
-    if (!userId) {
-      res.clearCookie("token");
-      return throwError("Invalid JWT token.", "INVALID_TOKEN");
-    }
-
+const postsByUser = async (
+  _: unknown,
+  { userId }: { userId: number },
+  __: unknown,
+) => {
+  try {
     return db.post.findMany({
       where: {
         userId,
       },
       include: {
         user: true,
+        comments: true,
+        likes: true,
       },
     });
-  },
-  post: async (_: unknown, args: { id: number }) => {
-    const { id } = args;
-    try {
-      return db.post.findUnique({
-        where: {
-          id,
-        },
-        include: {
-          user: true,
-          comments: true,
-        },
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  },
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const post = async (_: unknown, args: { id: number }) => {
+  const { id } = args;
+  try {
+    return db.post.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        user: true,
+        comments: true,
+        likes: true,
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const PostQuery = {
+  posts,
+  postsByUser,
+  post,
 };
