@@ -8,7 +8,7 @@ type Query {
 	users: [User]!
 	user(username: String!): User!
 	posts: [Post]!
-	postsByUser: [Post]!
+	postsByUser(userId: Int!): [Post]!
 	commentsByPost(postId: Int!): [Comment]!
 	post(id: Int!): Post!
 }

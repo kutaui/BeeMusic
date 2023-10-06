@@ -1,11 +1,12 @@
 "use client";
 import { useParams } from "next/navigation";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { GET_POST } from "@/graphql/queries/post-query";
 import PostCard from "@/components/post-card";
 import { CommentCard } from "@/components/comment-card";
 import { useContext } from "react";
 import { AuthContext } from "@/providers";
+import CreateComment from "@/components/create-comment";
 
 export default function PostPage() {
   const params = useParams();
@@ -15,6 +16,7 @@ export default function PostPage() {
   const likes = data?.post.likes;
   const { user } = useContext(AuthContext);
   const currentUserLiked = likes?.some((like: Like) => like.userId === user.id);
+
   return (
     <div>
       {data?.post && (
@@ -32,6 +34,7 @@ export default function PostPage() {
           likesLength={likes.length}
         />
       )}
+      <CreateComment postId={data?.post.id} />
       {comments &&
         comments?.map((comment: Reply) => (
           <CommentCard

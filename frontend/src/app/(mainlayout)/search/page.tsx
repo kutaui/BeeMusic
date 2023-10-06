@@ -5,6 +5,8 @@ import { useQuery } from "@apollo/client";
 import { GET_USERS } from "@/graphql/queries/user-query";
 import Link from "next/link";
 
+function ProfileCard() {}
+
 export default function Search() {
   const [searchInput, setSearchInput] = useState("");
   const { data }: { data: { users: User[] } | undefined } = useQuery(GET_USERS);

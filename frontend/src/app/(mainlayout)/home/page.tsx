@@ -13,15 +13,14 @@ import { GET_POSTS } from "@/graphql/queries/post-query";
 import PostCard from "@/components/post-card";
 
 export default function Home() {
-  const [validateJwt, error] = useMutation(VALIDATE_JWT_MUTATION);
+  const [validateJwt] = useMutation(VALIDATE_JWT_MUTATION);
   const [logout] = useMutation(LOGOUT_MUTATION);
   const { user, setUser } = useContext(AuthContext);
-  const { data }: { data: { posts: Post[] } | undefined; refetch: any } =
-    useQuery(GET_POSTS, {});
+  const { data }: { data: { posts: Post[] } | undefined } = useQuery(GET_POSTS);
+
   useEffect(() => {
     (async () => {
       const validatedUser = await validateUser(validateJwt);
-      console.log(validatedUser);
       if (!validatedUser) {
         toast({
           title: "Something went wrong",
@@ -32,11 +31,11 @@ export default function Home() {
         await logout();
       }
     })();
-  }, []);
+  }, [logout, setUser, validateJwt]);
+
   return (
     <main className="w-full">
       {data?.posts?.map((post: Post) => {
-        console.log(post.likes.some((like: Like) => like.userId === user.id));
         return (
           <PostCard
             key={post.id}

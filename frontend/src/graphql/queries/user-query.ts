@@ -12,6 +12,7 @@ export const GET_USER = gql`
   query GetUser($username: String!) {
     user(username: $username) {
       username
+      id
       posts {
         id
         title

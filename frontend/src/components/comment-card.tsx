@@ -10,6 +10,8 @@ type CommentCardProps = {
   commentId: number;
 };
 
+//add ... dots on the corner and put deletecomment with a alert to confirm
+
 export function CommentCard({ username, body }: CommentCardProps) {
   return (
     <Card className="border-b-[1px] hover:bg-gray-100 hover:cursor-pointer ">

@@ -11,16 +11,15 @@ import { GET_POSTS_BY_USER } from "@/graphql/queries/post-query";
 
 export default function UserPage() {
   const { user, setUser } = useContext(AuthContext);
-
   const params = useParams();
   const { data } = useQuery(GET_USER, {
     variables: { username: params.username },
   });
+  const userId = parseInt(data?.user?.id);
+
   const { data: userPosts } = useQuery(GET_POSTS_BY_USER, {
-    variables: { username: user.id },
+    variables: { userId },
   });
-  console.log(userPosts);
-  console.log(params.username);
   return (
     <main className="">
       <ProfileCard username={data?.user.username} />

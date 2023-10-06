@@ -98,13 +98,9 @@ export default function PostCard({
   const [likesCount, setLikesCount] = useState(likesLength);
   const parsedId = parseInt(postId);
   const { push } = useRouter();
-  const [createLike, { loading }] = useMutation(LIKE_MUTATION, {
+  const [createLike] = useMutation(LIKE_MUTATION, {
     variables: { postId: parsedId },
     refetchQueries: [{ query: GET_POST, variables: { id: parsedId } }],
-    onCompleted: (data) => {
-      console.log("Like mutation completed", data);
-      // You may update likesLength here based on the response if necessary
-    },
   });
 
   const onLikeClick = async (event: React.ChangeEvent<EventTarget>) => {

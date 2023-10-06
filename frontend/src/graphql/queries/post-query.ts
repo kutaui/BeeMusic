@@ -26,8 +26,8 @@ export const GET_POSTS = gql`
 `;
 
 export const GET_POSTS_BY_USER = gql`
-  query GetPostsByUser {
-    postsByUser {
+  query GetPostsByUser($userId: Int!) {
+    postsByUser(userId: $userId) {
       id
       title
       provider
