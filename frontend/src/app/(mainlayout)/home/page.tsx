@@ -48,7 +48,7 @@ export default function Home() {
             postId={post.id}
             commentsLength={post.comments.length}
             currentUserLiked={post.likes.some(
-              (like: Like) => like.userId === user.id
+              (like: Like) => like.userId === user?.id
             )}
             likesLength={post.likes.length}
           />

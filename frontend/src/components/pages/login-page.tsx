@@ -17,7 +17,7 @@ import { useMutation } from "@apollo/client";
 import { LOGIN_MUTATION } from "@/graphql/mutations/user-mutation";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "@/providers";
-import { toast, useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({

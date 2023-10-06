@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { AuthContext } from "@/providers";
 import { GET_POSTS_BY_USER } from "@/graphql/queries/post-query";
 
+//a lot of problems with event bubbling, check username and avatar events
 export default function UserPage() {
   const { user, setUser } = useContext(AuthContext);
   const params = useParams();

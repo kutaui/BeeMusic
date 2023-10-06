@@ -11,7 +11,7 @@ type CreateCommentProps = {
   postId: string;
 };
 
-//validate input and put max length
+//validate input and put max length and handle errors
 
 export default function CreateComment({ postId }: CreateCommentProps) {
   const [commentInput, setCommentInput] = useState("");

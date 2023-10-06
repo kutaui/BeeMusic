@@ -28,7 +28,10 @@ await server.start();
 
 app.use(
   "/",
-  cors<CorsRequest>({ origin: ["http://localhost:3000"], credentials: true }),
+  cors<CorsRequest>({
+    origin: ["http://localhost:3000", "http://192.168.1.110:3000"],
+    credentials: true,
+  }),
   bodyParser.json(),
   cookieParser(),
   expressMiddleware(server, {

@@ -10,7 +10,6 @@ const createPost = async (
 ) => {
   const { userId, res } = context;
   if (!userId) {
-    // clear the cookie if the token is invalid
     res.clearCookie("token");
     return throwError("Invalid JWT token.", "INVALID_TOKEN");
   }
