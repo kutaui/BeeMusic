@@ -9,7 +9,7 @@ export default function MainLayout({
   return (
     <>
       <MainNavbar />
-      <section>{children}</section>
+      <section className="pb-16">{children}</section>
       <MainDock />
     </>
   );
