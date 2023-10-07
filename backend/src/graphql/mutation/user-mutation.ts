@@ -105,9 +105,37 @@ const validateJwt = async (
   });
 };
 
+const updateAvatar = async (
+  _: unknown,
+  { avatar }: User,
+  context: { res: express.Response; userId: number | null },
+) => {
+  const { res, userId } = context;
+
+  if (!userId) {
+    res.clearCookie("token");
+    return throwError("Invalid Credentials.", "INVALID_CREDENTIALS");
+  }
+
+  try {
+    return db.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        avatar,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return throwError("Something went wrong.", "SOMETHING_WENT_WRONG");
+  }
+};
+
 export const userMutation = {
   login,
   register,
   logout,
   validateJwt,
+  updateAvatar,
 };

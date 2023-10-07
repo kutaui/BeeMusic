@@ -16,6 +16,7 @@ type Query {
 type Mutation {
 	login(email: String!, password: String!): User!
 	register(email: String!, username: String!, password: String!): User!
+	updateAvatar(avatar: String!): User!
 	createPost(body: String!): Post!
 	createComment(postId: Int!, body: String!): Comment!
 	createLike(postId: Int!): String!
