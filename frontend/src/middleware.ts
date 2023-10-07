@@ -20,9 +20,16 @@ export async function middleware(req: NextRequest) {
     );
   }
 
+  if (req.nextUrl.pathname.startsWith("/[username]") && !cookie) {
+    // Redirect to login page if the cookie is missing
+    return NextResponse.redirect(
+      `${process.env.NEXT_PUBLIC_FRONTEND_URL}/login`
+    );
+  }
+
   return response;
 }
 
 export const config = {
-  matcher: ["/", "/home", "/login", "/register"],
+  matcher: ["/", "/home", "/login", "/register", "/[username]"],
 };

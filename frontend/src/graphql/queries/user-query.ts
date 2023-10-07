@@ -4,6 +4,7 @@ export const GET_USERS = gql`
   query GetUsers {
     users {
       username
+      avatar
     }
   }
 `;
@@ -13,6 +14,7 @@ export const GET_USER = gql`
     user(username: $username) {
       username
       id
+      avatar
       posts {
         id
         title

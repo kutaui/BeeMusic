@@ -17,6 +17,7 @@ type User = {
   username: string;
   email: string;
   password: string;
+  avatar: AvatarEnum;
   posts: Post[];
   comments: Reply[];
   likes: Like[];
@@ -41,3 +42,12 @@ type Like = {
   comment: Reply;
   commentId: number;
 };
+
+enum AvatarEnum {
+  AVATAR_1 = "AVATAR_1",
+  AVATAR_2 = "AVATAR_2",
+  AVATAR_3 = "AVATAR_3",
+  AVATAR_4 = "AVATAR_4",
+  AVATAR_5 = "AVATAR_5",
+  AVATAR_6 = "AVATAR_6",
+}

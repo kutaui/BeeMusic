@@ -35,3 +35,11 @@ export const LOGOUT_MUTATION = gql`
     logout
   }
 `;
+
+export const UPDATE_USER_AVATAR_MUTATION = gql`
+  mutation UpdateUserAvatar($avatar: String!) {
+    updateAvatar(avatar: $avatar) {
+      avatar
+    }
+  }
+`;

@@ -13,9 +13,6 @@ export const validateUser = async (validateFunc: any) => {
   } catch (error: any) {
     deleteCookie("USER");
 
-    if (error.message === "Invalid Credentials.") {
-      return false;
-    }
-    return error;
+    return null;
   }
 };

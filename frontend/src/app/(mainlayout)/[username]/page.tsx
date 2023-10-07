@@ -8,8 +8,9 @@ import ProfileCard from "@/components/profile-card";
 import { useContext } from "react";
 import { AuthContext } from "@/providers";
 import { GET_POSTS_BY_USER } from "@/graphql/queries/post-query";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-//a lot of problems with event bubbling, check username and avatar events
 export default function UserPage() {
   const { user, setUser } = useContext(AuthContext);
   const params = useParams();
@@ -21,12 +22,18 @@ export default function UserPage() {
   const { data: userPosts } = useQuery(GET_POSTS_BY_USER, {
     variables: { userId },
   });
+
   return (
-    <main className="">
-      <ProfileCard username={data?.user.username} />
-      <div className="flex justify-center border-b p-6">
+    <main className="max-w-[800px] mx-auto">
+      <ProfileCard username={data?.user.username} avatar={data?.user.avatar} />
+      <div className="flex flex-col items-center border-b p-6">
+        {params.username === user.username && (
+          <Link passHref href="/profile" className="-10">
+            <Button variant="round">Edit Profile</Button>
+          </Link>
+        )}
         <h2 className="font-bold text-xl p-4">
-          {data?.user.username}`&apos;`s Posts
+          {data?.user.username}&apos;s Posts
         </h2>
       </div>
       {userPosts?.postsByUser?.map((post: Post) => (

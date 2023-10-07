@@ -1,18 +1,17 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import avatarMap from "@/lib/avatars";
 
 type ProfileCardProps = {
   username: string;
+  avatar: string;
 };
 
-export default function ProfileCard({ username }: ProfileCardProps) {
+export default function ProfileCard({ username, avatar }: ProfileCardProps) {
+  const userAvatar = avatarMap[avatar];
   return (
-    <div className="flex flex-col items-center p-4 border-t border-b">
+    <div className="flex flex-col items-center p-4  border-b">
       <Avatar className="w-20 h-20">
-        <AvatarImage
-          src="https://github.com/shadcn.png"
-          alt="@shadcn"
-          className=""
-        />
+        <AvatarImage src={userAvatar} alt="@shadcn" className="" />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
       <h2 className="text-2xl font-bold ">@{username}</h2>

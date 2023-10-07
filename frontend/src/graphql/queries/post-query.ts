@@ -36,6 +36,7 @@ export const GET_POSTS_BY_USER = gql`
       image
       user {
         username
+        avatar
       }
       likes {
         id
@@ -61,6 +62,7 @@ export const GET_POST = gql`
       image
       user {
         username
+        avatar
       }
       comments {
         id

@@ -14,11 +14,16 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { deleteCookie, setCookie } from "cookies-next";
 import { useMutation } from "@apollo/client";
-import { LOGIN_MUTATION } from "@/graphql/mutations/user-mutation";
+import {
+  LOGIN_MUTATION,
+  LOGOUT_MUTATION,
+  VALIDATE_JWT_MUTATION,
+} from "@/graphql/mutations/user-mutation";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "@/providers";
-import { useToast } from "@/components/ui/use-toast";
+import { toast, useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
+import { validateUser } from "@/lib/validate-user";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email" }),
@@ -113,7 +118,7 @@ function LoginForm() {
         />
         <div className="absolute bottom-10 w-[70%]">
           <h3 className="flex items-center justify-center pb-3">
-            Don`&apos;`t have an account ?
+            Don&apos;t have an account ?
             <Link href="/register" className="pl-2 font-bold">
               Register
             </Link>
@@ -128,11 +133,35 @@ function LoginForm() {
 }
 
 export default function LoginPage() {
+  const { push } = useRouter();
+  const [validateJwt] = useMutation(VALIDATE_JWT_MUTATION);
+  const [logout] = useMutation(LOGOUT_MUTATION);
+  const { setUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    (async () => {
+      const validatedUser = await validateUser(validateJwt);
+      console.log(validatedUser);
+      if (validatedUser === null) {
+        return;
+      }
+      if (!validatedUser) {
+        toast({
+          title: "Something went wrong",
+          description: "Please login again",
+        });
+        deleteCookie("USER");
+        setUser(null);
+        await logout();
+        push("/");
+      }
+    })();
+  }, [logout, push, setUser, validateJwt]);
   return (
     <>
       <div className="relative flex justify-center pb-10">
         <div className="font-[Montserrat] text-3xl flex flex-col items-start pt-[30%]">
-          <h1 className="font-bold pb-2">Let`&apos;`s sign you in.</h1>
+          <h1 className="font-bold pb-2">Let&apos;s sign you in.</h1>
           <h2>We missed you!</h2>
         </div>
       </div>

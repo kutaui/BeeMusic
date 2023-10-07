@@ -18,7 +18,7 @@ export default function PostPage() {
   const currentUserLiked = likes?.some((like: Like) => like.userId === user.id);
 
   return (
-    <div>
+    <main className="max-w-[800px] mx-auto">
       {data?.post && (
         <PostCard
           key={data.post.id}
@@ -44,6 +44,6 @@ export default function PostPage() {
             body={comment.body}
           />
         ))}
-    </div>
+    </main>
   );
 }

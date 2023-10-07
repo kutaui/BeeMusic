@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { useMutation } from "@apollo/client";
 import { CREATE_POST_MUTATION } from "@/graphql/mutations/post-mutation";
-import { GET_POSTS } from "@/graphql/queries/post-query";
+import { GET_POSTS, GET_POSTS_BY_USER } from "@/graphql/queries/post-query";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
@@ -24,7 +24,7 @@ export default function CreatePost() {
   const [postInput, setPostInput] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [createPost] = useMutation(CREATE_POST_MUTATION, {
-    refetchQueries: [{ query: GET_POSTS }],
+    refetchQueries: [{ query: GET_POSTS }, { query: GET_POSTS_BY_USER }],
   });
 
   const handleCreatePost = async (event: any) => {

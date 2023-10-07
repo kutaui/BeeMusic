@@ -152,24 +152,31 @@ function RegisterForm() {
 }
 
 export default function RegisterPage() {
-  const [validateJwt, { error }] = useMutation(VALIDATE_JWT_MUTATION);
+  const { push } = useRouter();
+  const [validateJwt] = useMutation(VALIDATE_JWT_MUTATION);
   const [logout] = useMutation(LOGOUT_MUTATION);
-  const { user, setUser } = useContext(AuthContext);
-  const { push, refresh } = useRouter();
+  const { setUser } = useContext(AuthContext);
+
   useEffect(() => {
     (async () => {
       const validatedUser = await validateUser(validateJwt);
-
+      console.log(validatedUser);
+      if (validatedUser === null) {
+        return;
+      }
       if (!validatedUser) {
+        toast({
+          title: "Something went wrong",
+          description: "Please login again",
+        });
         deleteCookie("USER");
         setUser(null);
         await logout();
-        refresh();
-      } else {
-        push("/home");
+        push("/");
       }
     })();
-  }, []);
+  }, [logout, push, setUser, validateJwt]);
+
   return (
     <>
       <div className="relative flex justify-center pb-10">

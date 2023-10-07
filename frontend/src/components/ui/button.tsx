@@ -18,7 +18,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         round:
-          "rounded-full bg-black text-white hover:bg-white hover:text-black",
+          "rounded-full bg-black text-white hover:bg-white hover:text-black border border-black",
         formMB:
           "w-full border bg-white rounded-2xl active:bg-black active:text-white border-black text-xl",
       },

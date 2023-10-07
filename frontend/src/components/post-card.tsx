@@ -14,7 +14,11 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useApolloClient, useMutation, useQuery } from "@apollo/client";
 import { LIKE_MUTATION } from "@/graphql/mutations/like-mutation";
-import { GET_POST } from "@/graphql/queries/post-query";
+import {
+  GET_POST,
+  GET_POSTS,
+  GET_POSTS_BY_USER,
+} from "@/graphql/queries/post-query";
 
 type PostCardFooterProps = {
   postId: string;
@@ -82,6 +86,7 @@ type PostCardProps = {
   currentUserLiked: boolean;
 };
 
+//add a tooltip on username or avatar hover like twitter
 export default function PostCard({
   url,
   title,
@@ -98,9 +103,14 @@ export default function PostCard({
   const [likesCount, setLikesCount] = useState(likesLength);
   const parsedId = parseInt(postId);
   const { push } = useRouter();
+  //the reason for a lot of the refetch queries is because when user clicks back, they don't see the updated like, they have to refresh, this solves that
   const [createLike] = useMutation(LIKE_MUTATION, {
     variables: { postId: parsedId },
-    refetchQueries: [{ query: GET_POST, variables: { id: parsedId } }],
+    refetchQueries: [
+      { query: GET_POST, variables: { id: parsedId } },
+      { query: GET_POSTS_BY_USER, variables: { username: username } },
+      { query: GET_POSTS },
+    ],
   });
 
   const onLikeClick = async (event: React.ChangeEvent<EventTarget>) => {
@@ -124,40 +134,28 @@ export default function PostCard({
     push(`http://localhost:3000/${username}/${postId}`);
   };
 
+  const onProfileClick = (event: React.ChangeEvent<EventTarget>) => {
+    event.stopPropagation();
+    push(`http://localhost:3000/${username}`);
+  };
+
   return (
     <>
       <Card
-        className="border-b-[1px] hover:bg-gray-100 hover:cursor-pointer "
+        className="border-b-[1px] hover:bg-gray-100 hover:cursor-pointer max-w-[600px] mx-auto "
         onClick={onCardClick}
       >
         <CardHeader className="flex flex-row w-[80%]">
-          <Link
-            passHref
-            href={{
-              pathname: "/[username]",
-              query: { username: username },
-            }}
-            as={`/${username}`}
-          >
-            <Avatar className="">
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-          </Link>
-          <Link
-            passHref
-            href={{
-              pathname: "/[username]",
-              query: { username: username },
-            }}
-            as={`/${username}`}
-          >
-            <CardTitle className=" pl-2 w-full hover:underline">
-              @{username}
-            </CardTitle>
-          </Link>
+          <Avatar onClick={onProfileClick} className="">
+            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+
+          <CardTitle onClick={onProfileClick} className="pl-2 hover:underline">
+            @{username}
+          </CardTitle>
         </CardHeader>
-        <CardContent className="break-words">
+        <CardContent className="break-words h-[50%]">
           <SpotifyPreview
             provider={provider}
             url={url}
