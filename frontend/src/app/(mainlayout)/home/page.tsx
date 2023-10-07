@@ -27,6 +27,7 @@ export default function Home() {
               (like: Like) => like.userId === user?.id
             )}
             likesLength={post.likes.length}
+            avatar={post.user.avatar}
           />
         );
       })}

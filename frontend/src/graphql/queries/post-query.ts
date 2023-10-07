@@ -11,6 +11,7 @@ export const GET_POSTS = gql`
       image
       user {
         username
+        avatar
       }
       comments {
         id

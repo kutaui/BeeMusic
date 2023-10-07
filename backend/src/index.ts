@@ -30,7 +30,7 @@ await server.start();
 app.use(
   "/",
   cors<CorsRequest>({
-    origin: ["http://localhost:3000", "http://192.168.1.110:3000"],
+    origin: process.env.FRONTEND_URL,
     credentials: true,
   }),
   bodyParser.json(),

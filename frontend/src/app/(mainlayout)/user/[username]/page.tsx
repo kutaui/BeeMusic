@@ -14,20 +14,30 @@ import Link from "next/link";
 export default function UserPage() {
   const { user, setUser } = useContext(AuthContext);
   const params = useParams();
-  const { data } = useQuery(GET_USER, {
+  const { data, loading, error } = useQuery(GET_USER, {
     variables: { username: params.username },
   });
   const userId = parseInt(data?.user?.id);
-
   const { data: userPosts } = useQuery(GET_POSTS_BY_USER, {
     variables: { userId },
   });
 
+  //TODO:Add skeleton loading
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!data)
+    return (
+      <div className="flex justify-center text-lg all:text-3xl font-bold p-10">
+        <h2>This user doesn&apos;t exist, try searching for another.</h2>
+      </div>
+    );
   return (
     <main className="max-w-[800px] mx-auto">
       <ProfileCard username={data?.user.username} avatar={data?.user.avatar} />
       <div className="flex flex-col items-center border-b p-6">
-        {params.username === user.username && (
+        {params.username === user?.username && (
           <Link passHref href="/profile" className="-10">
             <Button variant="round">Edit Profile</Button>
           </Link>
@@ -51,6 +61,7 @@ export default function UserPage() {
             (like: Like) => like.userId === user.id
           )}
           likesLength={post.likes.length}
+          avatar={post.user.avatar}
         />
       ))}
     </main>

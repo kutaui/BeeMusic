@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { validateUser } from "@/lib/validate-user";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import {
   LOGIN_MUTATION,
@@ -86,7 +86,7 @@ function RegisterForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 w-[70%] mx-auto  "
+        className="space-y-4 w-[70%] mx-auto max-w-[700px]  "
       >
         <FormField
           control={form.control}
@@ -122,7 +122,7 @@ function RegisterForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormControl className="rounded-xl placeholder:text-gray-500 text-lg h-12 border-black border-2 font-[Montserrat]">
+              <FormControl className="rounded-xl placeholder:text-gray-500 text-lg h-12 border-black border-2 font-[Montserrat] peer">
                 <Input
                   className=""
                   placeholder="Password"
@@ -134,11 +134,10 @@ function RegisterForm() {
             </FormItem>
           )}
         />
-        <div className="absolute bottom-10 w-[70%]">
+        <div className="pt-8">
           <h3 className="flex items-center justify-center pb-3">
-            Have an account?{" "}
+            Have an account?
             <Link href="/login" className="pl-2 font-bold">
-              {" "}
               Login
             </Link>
           </h3>
@@ -160,7 +159,6 @@ export default function RegisterPage() {
   useEffect(() => {
     (async () => {
       const validatedUser = await validateUser(validateJwt);
-      console.log(validatedUser);
       if (validatedUser === null) {
         return;
       }
@@ -179,8 +177,8 @@ export default function RegisterPage() {
 
   return (
     <>
-      <div className="relative flex justify-center pb-10">
-        <div className="font-[Montserrat] text-3xl flex flex-col items-start pt-[30%]">
+      <div className="flex justify-center pb-10 max-w-[700px] mx-auto  ">
+        <div className="font-[Montserrat] text-2xl sm:text-3xl flex flex-col items-start pt-[10%]">
           <h1 className="font-bold pb-2">Ready to jam with us?</h1>
           <h2>Welcome aboard!</h2>
         </div>

@@ -80,7 +80,7 @@ function LoginForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 w-[70%] mx-auto  "
+        className="space-y-4 w-[70%] mx-auto  max-w-[700px]  "
       >
         <FormField
           control={form.control}
@@ -116,7 +116,7 @@ function LoginForm() {
             </FormItem>
           )}
         />
-        <div className="absolute bottom-10 w-[70%]">
+        <div className="pt-10">
           <h3 className="flex items-center justify-center pb-3">
             Don&apos;t have an account ?
             <Link href="/register" className="pl-2 font-bold">
@@ -141,7 +141,6 @@ export default function LoginPage() {
   useEffect(() => {
     (async () => {
       const validatedUser = await validateUser(validateJwt);
-      console.log(validatedUser);
       if (validatedUser === null) {
         return;
       }
@@ -159,8 +158,8 @@ export default function LoginPage() {
   }, [logout, push, setUser, validateJwt]);
   return (
     <>
-      <div className="relative flex justify-center pb-10">
-        <div className="font-[Montserrat] text-3xl flex flex-col items-start pt-[30%]">
+      <div className=" flex justify-center pb-10 max-w-[700px] mx-auto">
+        <div className="font-[Montserrat] text-3xl flex flex-col items-start pt-[10%]">
           <h1 className="font-bold pb-2">Let&apos;s sign you in.</h1>
           <h2>We missed you!</h2>
         </div>

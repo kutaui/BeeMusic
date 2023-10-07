@@ -15,8 +15,22 @@ import { GET_POSTS, GET_POSTS_BY_USER } from "@/graphql/queries/post-query";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import * as z from "zod";
 
-//add input validation and max length, also error handling
+const errorMessage =
+  "Please enter a valid song URL that does not exceed 100 characters.";
+
+const inputSchema = z.object({
+  body: z
+    .string()
+    .min(1, { message: errorMessage })
+    .max(100, { message: errorMessage })
+    .refine((value) => value.startsWith("https://open.spotify.com/"), {
+      message: errorMessage,
+    }),
+});
+
+//TODO: Maybe redirect user to the created post for better UX, not sure about UX
 export default function CreatePost() {
   const { toast } = useToast();
 
@@ -29,21 +43,33 @@ export default function CreatePost() {
 
   const handleCreatePost = async (event: any) => {
     event.preventDefault();
-    try {
+
+    const validationResult = inputSchema.safeParse({ body: postInput });
+    if (!validationResult.success) {
+      toast({
+        title: "Invalid URL",
+        description: errorMessage,
+      });
+      return;
+    }
+    if (validationResult.success) {
       await createPost({
         variables: {
           body: postInput,
         },
       });
-
-      setPostInput("");
-      setOpenDialog(false);
       toast({
         title: "Post Created",
         description: "Your post has been created.",
       });
-    } catch (error) {
-      console.log(error);
+      setPostInput("");
+      setOpenDialog(false);
+      return;
+    } else {
+      toast({
+        title: "Something went wrong",
+        description: "Please try again.",
+      });
     }
   };
 
@@ -67,9 +93,9 @@ export default function CreatePost() {
             height={25}
           />
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="max-w-[425px] all:max-w-[650px]">
           <DialogHeader>
-            <DialogTitle>Create a post</DialogTitle>
+            <DialogTitle className="text-3xl">Create a post</DialogTitle>
           </DialogHeader>
           <Textarea
             value={postInput}
@@ -78,6 +104,7 @@ export default function CreatePost() {
             onInput={handleInput}
             placeholder="Post your reply"
             className="resize-none border-0 text-lg placeholder:text-gray-400 w-full"
+            maxLength={120}
           />
           <DialogFooter>
             <Button variant="round" onClick={handleCreatePost}>

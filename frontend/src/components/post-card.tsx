@@ -19,6 +19,7 @@ import {
   GET_POSTS,
   GET_POSTS_BY_USER,
 } from "@/graphql/queries/post-query";
+import avatarMap from "@/lib/avatars";
 
 type PostCardFooterProps = {
   postId: string;
@@ -84,9 +85,11 @@ type PostCardProps = {
   commentsLength: number;
   likesLength: number;
   currentUserLiked: boolean;
+  avatar: string;
 };
 
-//add a tooltip on username or avatar hover like twitter
+//TODO: add a tooltip on username or avatar hover like twitter
+//TODO: make the alt text for the avatar more accessible
 export default function PostCard({
   url,
   title,
@@ -98,6 +101,7 @@ export default function PostCard({
   commentsLength,
   currentUserLiked,
   likesLength,
+  avatar,
 }: PostCardProps) {
   const [liked, setLiked] = useState(currentUserLiked);
   const [likesCount, setLikesCount] = useState(likesLength);
@@ -112,6 +116,7 @@ export default function PostCard({
       { query: GET_POSTS },
     ],
   });
+  const userAvatar = avatarMap[avatar];
 
   const onLikeClick = async (event: React.ChangeEvent<EventTarget>) => {
     event.stopPropagation();
@@ -131,12 +136,12 @@ export default function PostCard({
   };
   const onCardClick = (event: React.ChangeEvent<EventTarget>) => {
     event.stopPropagation();
-    push(`http://localhost:3000/${username}/${postId}`);
+    push(`http://localhost:3000/user/${username}/${postId}`);
   };
 
   const onProfileClick = (event: React.ChangeEvent<EventTarget>) => {
     event.stopPropagation();
-    push(`http://localhost:3000/${username}`);
+    push(`http://localhost:3000/user/${username}`);
   };
 
   return (
@@ -147,7 +152,7 @@ export default function PostCard({
       >
         <CardHeader className="flex flex-row w-[80%]">
           <Avatar onClick={onProfileClick} className="">
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            <AvatarImage src={userAvatar} alt="@shadcn" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
 

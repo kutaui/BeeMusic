@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Providers>
-        <body className="max-w-[1444px] mx-auto">
+        <body className=" mx-auto">
           {children}
           <Toaster />
         </body>
