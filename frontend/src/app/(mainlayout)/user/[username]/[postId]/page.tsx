@@ -17,7 +17,9 @@ export default function PostPage() {
   const comments = data?.post.comments;
   const likes = data?.post.likes;
   const { user } = useContext(AuthContext);
-  const currentUserLiked = likes?.some((like: Like) => like.userId === user.id);
+  const currentUserLiked = likes?.some(
+    (like: Like) => like.userId === user?.id
+  );
 
   //TODO:Add skeleton loading
   if (loading) {
