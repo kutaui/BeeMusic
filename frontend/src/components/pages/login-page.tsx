@@ -58,7 +58,6 @@ function LoginForm() {
         description: "Redirecting you to the home page.",
       });
       setCookie("USER", JSON.stringify(data.login));
-      console.log(data.login);
       setUser(data.login);
       push("/home");
     } catch (error: any) {
