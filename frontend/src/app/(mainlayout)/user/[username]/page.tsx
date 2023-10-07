@@ -5,21 +5,23 @@ import { GET_USER } from "@/graphql/queries/user-query";
 import { useParams } from "next/navigation";
 import PostCard from "@/components/post-card";
 import ProfileCard from "@/components/profile-card";
-import { useContext } from "react";
+import { useContext, useEffect, useLayoutEffect } from "react";
 import { AuthContext } from "@/providers";
 import { GET_POSTS_BY_USER } from "@/graphql/queries/post-query";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function UserPage() {
-  const { user, setUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const params = useParams();
-  const { data, loading, error } = useQuery(GET_USER, {
+  const { data, loading } = useQuery(GET_USER, {
     variables: { username: params.username },
+    fetchPolicy: "no-cache",
   });
   const userId = parseInt(data?.user?.id);
   const { data: userPosts } = useQuery(GET_POSTS_BY_USER, {
     variables: { userId },
+    fetchPolicy: "no-cache",
   });
 
   //TODO:Add skeleton loading
@@ -58,7 +60,7 @@ export default function UserPage() {
           postId={post.id}
           commentsLength={post.comments.length}
           currentUserLiked={post.likes.some(
-            (like: Like) => like.userId === user.id
+            (like: Like) => like.userId === user?.id
           )}
           likesLength={post.likes.length}
           avatar={post.user.avatar}

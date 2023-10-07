@@ -140,7 +140,7 @@ export default function LoginPage() {
   useEffect(() => {
     (async () => {
       const validatedUser = await validateUser(validateJwt);
-      if (validatedUser === null) {
+      if (validatedUser === "error") {
         return;
       }
       if (!validatedUser) {

@@ -37,38 +37,45 @@ export default function CreatePost() {
   const [openDialog, setOpenDialog] = useState(false);
   const [postInput, setPostInput] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-  const [createPost] = useMutation(CREATE_POST_MUTATION, {
-    refetchQueries: [{ query: GET_POSTS }, { query: GET_POSTS_BY_USER }],
+  const [createPost, { error }] = useMutation(CREATE_POST_MUTATION, {
+    refetchQueries: [GET_POSTS, GET_POSTS_BY_USER],
   });
 
   const handleCreatePost = async (event: any) => {
     event.preventDefault();
 
     const validationResult = inputSchema.safeParse({ body: postInput });
-    if (!validationResult.success) {
-      toast({
-        title: "Invalid URL",
-        description: errorMessage,
-      });
-      return;
-    }
-    if (validationResult.success) {
-      await createPost({
-        variables: {
-          body: postInput,
-        },
-      });
-      toast({
-        title: "Post Created",
-        description: "Your post has been created.",
-      });
-      setPostInput("");
-      setOpenDialog(false);
-      return;
-    } else {
+    try {
+      if (!validationResult.success) {
+        toast({
+          title: "Invalid URL",
+          description: errorMessage,
+        });
+        return;
+      }
+      if (validationResult.success) {
+        await createPost({
+          variables: {
+            body: postInput,
+          },
+        });
+        toast({
+          title: "Post Created",
+          description: "Your post has been created.",
+        });
+        setPostInput("");
+        setOpenDialog(false);
+        return;
+      } else {
+        toast({
+          title: "Something went wrong",
+          description: "Please try again.",
+        });
+      }
+    } catch (error) {
       toast({
         title: "Something went wrong",
-        description: "Please try again.",
+        description: error.message,
       });
     }
   };

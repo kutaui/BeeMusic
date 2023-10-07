@@ -6,6 +6,7 @@ export const LOGIN_MUTATION = gql`
       email
       username
       id
+      avatar
     }
   }
 `;
@@ -16,6 +17,7 @@ export const REGISTER_MUTATION = gql`
       email
       username
       id
+      avatar
     }
   }
 `;
@@ -26,6 +28,7 @@ export const VALIDATE_JWT_MUTATION = gql`
       email
       username
       id
+      avatar
     }
   }
 `;
@@ -39,6 +42,7 @@ export const LOGOUT_MUTATION = gql`
 export const UPDATE_USER_AVATAR_MUTATION = gql`
   mutation UpdateUserAvatar($avatar: String!) {
     updateAvatar(avatar: $avatar) {
+      username
       avatar
     }
   }

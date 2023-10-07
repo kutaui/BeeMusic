@@ -46,7 +46,7 @@ export default function Search() {
       />
       {searchInput &&
         filteredUsers?.map((user: User, index) => (
-          <Link href={`/${user.username}`} key={index}>
+          <Link href={`/user/${user.username}`} key={index}>
             <ProfileCard
               key={index}
               username={user.username}

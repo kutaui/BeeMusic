@@ -15,7 +15,7 @@ import { deleteCookie } from "cookies-next";
 import { AuthContext } from "@/providers";
 
 export default function MainDock() {
-  const { push } = useRouter();
+  const { push, refresh } = useRouter();
   const [validateJwt] = useMutation(VALIDATE_JWT_MUTATION);
   const [logout] = useMutation(LOGOUT_MUTATION);
   const { user, setUser } = useContext(AuthContext);
@@ -28,7 +28,7 @@ export default function MainDock() {
   useEffect(() => {
     (async () => {
       const validatedUser = await validateUser(validateJwt);
-      if (!validatedUser) {
+      if (!validatedUser || validatedUser === "error") {
         toast({
           title: "Something went wrong",
           description: "Please login again",
@@ -36,10 +36,10 @@ export default function MainDock() {
         deleteCookie("USER");
         setUser(null);
         await logout();
-        push("/login");
+        refresh();
       }
     })();
-  }, [logout, push, setUser, validateJwt]);
+  }, [logout, push, refresh, setUser, validateJwt]);
 
   return (
     <div className="fixed bottom-0 p-5  border-t w-full bg-white">

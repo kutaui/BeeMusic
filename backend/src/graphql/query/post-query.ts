@@ -1,6 +1,4 @@
 import { db } from "../../utils/db.js";
-import { throwError } from "../../utils/throw-error.js";
-import { Response } from "express";
 
 const posts = async () => {
   try {
@@ -40,13 +38,17 @@ const postsByUser = async (
 const post = async (_: unknown, args: { id: number }) => {
   const { id } = args;
   try {
-    return db.post.findUnique({
+    return await db.post.findUnique({
       where: {
         id,
       },
       include: {
         user: true,
-        comments: true,
+        comments: {
+          include: {
+            user: true,
+          },
+        },
         likes: true,
       },
     });

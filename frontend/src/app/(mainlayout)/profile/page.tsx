@@ -1,12 +1,15 @@
 "use client";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useMutation, useQuery } from "@apollo/client";
 import { UPDATE_USER_AVATAR_MUTATION } from "@/graphql/mutations/user-mutation";
 import { GET_USER } from "@/graphql/queries/user-query";
-import { getCookie } from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
+import { toast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
+import { AuthContext } from "@/providers";
 
 const avatars = [
   {
@@ -48,8 +51,12 @@ const avatars = [
 ];
 
 export default function ProfilePage() {
+  const { user, setUser } = useContext(AuthContext);
+  const { push, refresh } = useRouter();
   const [selectedAvatar, setSelectedAvatar] = useState("AVATAR_1");
-  const [updateAvatar] = useMutation(UPDATE_USER_AVATAR_MUTATION);
+  const [updateAvatar] = useMutation(UPDATE_USER_AVATAR_MUTATION, {
+    refetchQueries: [{ query: GET_USER }],
+  });
 
   const handleAvatarChange = (value: React.SetStateAction<string>) => {
     setSelectedAvatar(value);
@@ -60,7 +67,37 @@ export default function ProfilePage() {
       const data = await updateAvatar({
         variables: { avatar: selectedAvatar },
       });
-      console.log(data);
+
+      // Update the user's avatar in the context
+      setUser((prevUser) => {
+        if (prevUser === null) {
+          return null; // Return null if prevUser is null
+        }
+
+        // Update the avatar and keep other properties intact
+        return {
+          ...prevUser,
+          avatar: selectedAvatar as AvatarEnum,
+        };
+      });
+
+      const userCookie = getCookie("USER");
+      if (userCookie) {
+        const updatedUser = {
+          ...JSON.parse(userCookie),
+          avatar: selectedAvatar,
+        };
+        setCookie("USER", JSON.stringify(updatedUser));
+      }
+
+      toast({
+        title: "Avatar Updated",
+        description: "Your avatar has been updated.",
+      });
+
+      setTimeout(() => {
+        push(`/user/${data?.data?.updateAvatar.username}`);
+      }, 2000);
     } catch (e) {
       console.log(e);
     }

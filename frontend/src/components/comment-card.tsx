@@ -23,10 +23,10 @@ export function CommentCard({ username, body, avatar }: CommentCardProps) {
         <Link
           passHref
           href={{
-            pathname: "/[username]",
+            pathname: "/user/[username]",
             query: { username: username },
           }}
-          as={`/${username}`}
+          as={`/user/${username}`}
         >
           <Avatar className="">
             <AvatarImage src={userAvatar} alt="@shadcn" />
@@ -36,10 +36,10 @@ export function CommentCard({ username, body, avatar }: CommentCardProps) {
         <Link
           passHref
           href={{
-            pathname: "/[username]",
+            pathname: "/user/[username]",
             query: { username: username },
           }}
-          as={`/${username}`}
+          as={`/user/${username}`}
         >
           <CardTitle className=" w-full pl-2  hover:underline">
             @{username}

@@ -23,7 +23,7 @@ export default function PostPage() {
   if (loading) {
     return <div>Loading...</div>;
   }
-
+  console.log(data.post.comments);
   if (!data)
     return (
       <div className="flex justify-center text-lg all:text-3xl font-bold p-10">
@@ -48,15 +48,15 @@ export default function PostPage() {
           avatar={data.post.user.avatar}
         />
       )}
-      <CreateComment postId={data?.post.id} avatar={data?.post.user.avatar} />
+      <CreateComment postId={data?.post.id} />
       {comments &&
         comments?.map((comment: Reply) => (
           <CommentCard
             key={comment.id}
-            username={data.post.user.username}
+            username={comment.user.username}
             commentId={comment.id}
             body={comment.body}
-            avatar={data.post.user.avatar}
+            avatar={comment.user.avatar}
           />
         ))}
     </main>

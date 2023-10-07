@@ -59,8 +59,8 @@ export function PostCardFooter({
       <Link
         className="flex text-ellipsis w-16"
         passHref
-        href="/[username]/[postId]"
-        as={`/${username}/${postId}`}
+        href="/user/[username]/[postId]"
+        as={`/user/${username}/${postId}`}
       >
         <Image
           src="/icons/comment.png"

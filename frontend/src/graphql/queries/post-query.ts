@@ -68,6 +68,10 @@ export const GET_POST = gql`
       comments {
         id
         body
+        user {
+          avatar
+          username
+        }
       }
       likes {
         id

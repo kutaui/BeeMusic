@@ -28,7 +28,7 @@ const App = () => {
       <Navbar />
       <main className="max-w-[900px] mx-auto w-full pt-10 space-y-10 pb-10  ">
         <section className="w-[80%] mx-auto space-y-8 h-auto flex flex-col items-center [&>p]:w-[80%]">
-          <h1 className="text-3xl font-bold font-[Montserrat]">
+          <h1 className="text-3xl font-bold font-[Montserrat] ">
             Share your favorite music with the world
           </h1>
           <p className="text-lg font-serif ">

@@ -1,21 +1,37 @@
 "use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
+import { AuthContext } from "@/providers";
+import React, { useContext, useEffect, useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import avatarMap from "@/lib/avatars";
+import Link from "next/link";
+import { useQuery } from "@apollo/client";
+import { GET_USER } from "@/graphql/queries/user-query";
 export default function MainNavbar() {
+  const { user } = useContext(AuthContext);
+  console.log(user);
+
+  const avatar = avatarMap[user?.avatar];
+
   const { back } = useRouter();
+  console.log(user);
   return (
-    <div className="w-full flex justify-around pt-6 pb-6 border-b">
+    <div className="w-full flex justify-around pt-6 pb-6 border-b [&>*]:sm:w-[60px] [&>*]:all:w-[75px] [&>*]:sm:h-[60px] [&>*]:all:h-[75px] ">
       <Image
         width={40}
         height={40}
         src="/icons/return.png"
         alt="Go back icon"
-        className="w-[12%] h-[12%] max-w-[60px]  mt-[5%] hover:cursor-pointer"
+        className="hover:cursor-pointer "
         onClick={() => back()}
       />
-
-      <Image src="/icons/bee-icon.png" width={80} height={80} alt="Bee Icon" />
+      <Avatar className="">
+        <Link passHref href={`/user/${user?.username}`}>
+          <AvatarImage src={avatar} alt="@shadcn" />
+          <AvatarFallback>CN</AvatarFallback>
+        </Link>
+      </Avatar>
     </div>
   );
 }

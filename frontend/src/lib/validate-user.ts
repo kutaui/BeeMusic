@@ -13,6 +13,6 @@ export const validateUser = async (validateFunc: any) => {
   } catch (error: any) {
     deleteCookie("USER");
 
-    return null;
+    return "error";
   }
 };

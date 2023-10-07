@@ -6,10 +6,10 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import React, { createContext, useEffect, useState } from "react";
-import { deleteCookie, getCookie } from "cookies-next";
+import { getCookie } from "cookies-next";
 
 const link = createHttpLink({
-  uri: "http://localhost:4000",
+  uri: process.env.NEXT_PUBLIC_BACKEND_URL,
   credentials: "include",
 });
 
@@ -18,32 +18,44 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export const AuthContext = createContext({
-  user: {
-    email: null,
-    username: null,
-    id: null,
-  },
-  setUser: (user: any) => {},
+enum AvatarEnum {
+  AVATAR_1 = "AVATAR_1",
+  AVATAR_2 = "AVATAR_2",
+  AVATAR_3 = "AVATAR_3",
+  AVATAR_4 = "AVATAR_4",
+  AVATAR_5 = "AVATAR_5",
+  AVATAR_6 = "AVATAR_6",
+}
+
+const initialUser: User = {
+  id: 0,
+  username: "",
+  email: "",
+  password: "",
+  avatar: AvatarEnum.AVATAR_1,
+  posts: [],
+  comments: [],
+  likes: [],
+};
+
+export const AuthContext = createContext<{
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+}>({
+  user: initialUser,
+  setUser: () => null, // Change this to match the type
 });
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState({
-    email: null,
-    username: null,
-    id: null,
-  });
-
+  const [user, setUser] = useState<User | null>(initialUser); // Update this line
   useEffect(() => {
     const storedUser = getCookie("USER");
     const userInCookie = storedUser ? JSON.parse(storedUser) : null;
     setUser(userInCookie);
   }, []);
 
-  const value = { user, setUser };
-
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider value={{ user: user, setUser: setUser }}>
       <ApolloProvider client={client}>{children}</ApolloProvider>
     </AuthContext.Provider>
   );

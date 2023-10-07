@@ -9,7 +9,7 @@ import { typeDefs } from "./graphql/typedefs/typedefs.js";
 import { context } from "./utils/middleware-context.js";
 import { Query } from "./graphql/query/index.js";
 import { Mutation } from "./graphql/mutation/index.js";
-import { db } from "./utils/db.js";
+import getMetaData from "metadata-scraper";
 
 dotenv.config();
 

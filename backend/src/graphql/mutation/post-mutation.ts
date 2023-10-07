@@ -16,9 +16,14 @@ const createPost = async (
 
   if (body.startsWith("https://open.spotify.com/")) {
     try {
-      //@ts-ignore
+      //@ts-ignore no types for metadata-scraper
       const metadata = await getMetaData(body);
       const { title, description, image, url, provider } = metadata;
+      if (!description || !image || !url || !provider)
+        return throwError(
+          "Please check the song url and try again",
+          "POST_CREATION_ERROR",
+        );
       return db.post.create({
         data: {
           title,
