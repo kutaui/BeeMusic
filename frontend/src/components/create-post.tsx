@@ -72,7 +72,7 @@ export default function CreatePost() {
           description: "Please try again.",
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Something went wrong",
         description: error.message,

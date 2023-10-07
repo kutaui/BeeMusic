@@ -13,7 +13,7 @@ type CreateCommentProps = {
   postId: string;
 };
 
-//validate input and put max length and handle errors
+//TODO:validate input and put max length and handle errors
 
 export default function CreateComment({ postId }: CreateCommentProps) {
   const [commentInput, setCommentInput] = useState("");
@@ -24,6 +24,7 @@ export default function CreateComment({ postId }: CreateCommentProps) {
   });
 
   const { user } = useContext(AuthContext);
+  //@ts-ignore
   const userAvatar = avatarMap[user?.avatar];
 
   const handleInput = () => {
@@ -65,6 +66,7 @@ export default function CreateComment({ postId }: CreateCommentProps) {
             onInput={handleInput}
             placeholder="Post your reply"
             className="resize-none border-0 text-lg placeholder:text-gray-400 w-full"
+            maxLength={200}
           />
         </div>
       </div>

@@ -2,8 +2,33 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useContext, useEffect } from "react";
+import { validateUser } from "@/lib/validate-user";
+import { toast } from "@/components/ui/use-toast";
+import { deleteCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
+import { useMutation } from "@apollo/client";
+import {
+  LOGOUT_MUTATION,
+  VALIDATE_JWT_MUTATION,
+} from "@/graphql/mutations/user-mutation";
+import { AuthContext } from "@/providers";
 
 function Navbar() {
+  const { push, refresh } = useRouter();
+  const [validateJwt] = useMutation(VALIDATE_JWT_MUTATION);
+  const [logout] = useMutation(LOGOUT_MUTATION);
+  const { setUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    (async () => {
+      const validatedUser = await validateUser(validateJwt);
+      if (!validatedUser || validatedUser === "error") {
+        deleteCookie("USER");
+        setUser(null);
+      }
+    })();
+  }, [logout, push, refresh, setUser, validateJwt]);
   return (
     <nav className="flex justify-around items-center pt-4 ">
       <div className="flex items-center">
@@ -51,8 +76,8 @@ const App = () => {
           <p className="text-lg font-serif">
             BeeMusic is your personal stage to showcase the tunes that strike a
             chord in your heart. Share the songs you love, discover hidden gems,
-            and connect with fellow music enthusiasts. It's your playlist, your
-            way.
+            and connect with fellow music enthusiasts. It&apos;s your playlist,
+            your way.
           </p>
         </section>
         <div className="flex justify-center ">

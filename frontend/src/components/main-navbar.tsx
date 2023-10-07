@@ -8,16 +8,18 @@ import avatarMap from "@/lib/avatars";
 import Link from "next/link";
 import { useQuery } from "@apollo/client";
 import { GET_USER } from "@/graphql/queries/user-query";
+import { Button } from "@/components/ui/button";
 export default function MainNavbar() {
   const { user } = useContext(AuthContext);
   console.log(user);
 
+  //@ts-ignore
   const avatar = avatarMap[user?.avatar];
 
   const { back } = useRouter();
   console.log(user);
   return (
-    <div className="w-full flex justify-around pt-6 pb-6 border-b [&>*]:sm:w-[60px] [&>*]:all:w-[75px] [&>*]:sm:h-[60px] [&>*]:all:h-[75px] ">
+    <div className="w-full flex justify-around justify-items-center pt-6 pb-6 border-b [&>*]:sm:w-[60px] [&>*]:all:w-[75px] [&>*]:sm:h-[60px] [&>*]:all:h-[75px] ">
       <Image
         width={40}
         height={40}
@@ -26,6 +28,12 @@ export default function MainNavbar() {
         className="hover:cursor-pointer "
         onClick={() => back()}
       />
+      <Button variant="round" className="" asChild>
+        <Link passHref href="/home">
+          Home
+        </Link>
+      </Button>
+
       <Avatar className="">
         <Link passHref href={`/user/${user?.username}`}>
           <AvatarImage src={avatar} alt="@shadcn" />
