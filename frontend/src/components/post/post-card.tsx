@@ -6,12 +6,16 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+} from "@/components/ui/card/card";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar/avatar";
 import PostPreview from "@/components/post/post-preview";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { LIKE_MUTATION } from "@/graphql/mutations/like-mutation";
 import {
@@ -34,6 +38,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { toast } from "@/components/ui/use-toast";
 import { AlertDialogOverlay } from "@radix-ui/react-alert-dialog";
+import { AuthContext } from "@/providers";
 
 type PostCardFooterProps = {
   postId: string;
@@ -206,6 +211,7 @@ export default function PostCard({
     ],
   });
   const userAvatar = avatarMap[avatar];
+  const { user } = useContext(AuthContext);
 
   const onLikeClick = async (event: React.ChangeEvent<EventTarget>) => {
     event.stopPropagation();
@@ -217,6 +223,10 @@ export default function PostCard({
       // Perform the actual like mutation
       await createLike();
     } catch (error) {
+      toast({
+        title: "Error",
+        description: "There was an error liking this post.",
+      });
       console.log("Error liking post:", error);
       // If there's an error, roll back the optimistic update
       setLikesCount(liked ? likesCount + 1 : likesCount - 1);
@@ -249,13 +259,16 @@ export default function PostCard({
           <CardTitle onClick={onProfileClick} className="pl-2 hover:underline">
             @{username}
           </CardTitle>
-          <div className="absolute right-10 flex items-center justify-center ">
-            <DeletePostDialog postId={postId} username={username}>
-              <h2 className="font-black border border-black w-8 h-8 rounded-full text-center bg-black text-white hover:bg-white hover:text-black ">
-                ...
-              </h2>
-            </DeletePostDialog>
-          </div>
+
+          {user?.username === username && (
+            <div className="absolute right-10 flex items-center justify-center ">
+              <DeletePostDialog postId={postId} username={username}>
+                <h2 className="font-black border border-black w-8 h-8 rounded-full text-center bg-black text-white hover:bg-white hover:text-black ">
+                  ...
+                </h2>
+              </DeletePostDialog>
+            </div>
+          )}
         </CardHeader>
         <CardContent className="break-words h-[50%]">
           <PostPreview

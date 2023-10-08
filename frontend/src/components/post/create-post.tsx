@@ -1,5 +1,5 @@
 "use client";
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from "@/components/ui/textarea/textarea";
 import React, { useRef, useState } from "react";
 import {
   Dialog,
@@ -13,7 +13,7 @@ import { useMutation } from "@apollo/client";
 import { CREATE_POST_MUTATION } from "@/graphql/mutations/post-mutation";
 import { GET_POSTS, GET_POSTS_BY_USER } from "@/graphql/queries/post-query";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import { useToast } from "@/components/ui/use-toast";
 import * as z from "zod";
 import DOMPurify from "dompurify";

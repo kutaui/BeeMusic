@@ -1,10 +1,14 @@
 "use client";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/ui/input/input";
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_USERS } from "@/graphql/queries/user-query";
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar/avatar";
 import avatarMap from "@/lib/avatars";
 
 type ProfileCardProps = {
@@ -28,7 +32,6 @@ function ProfileCard({ username, avatar }: ProfileCardProps) {
 export default function Search() {
   const [searchInput, setSearchInput] = useState("");
   const { data }: { data: { users: User[] } | undefined } = useQuery(GET_USERS);
-  console.log(data);
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
   };

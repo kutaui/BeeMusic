@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import Link from "next/link";
 import { useContext, useEffect } from "react";
 import { validateUser } from "@/lib/validate-user";

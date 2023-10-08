@@ -3,7 +3,7 @@ import Image from "next/image";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import {
   Form,
   FormControl,
@@ -11,7 +11,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/ui/input/input";
 import Link from "next/link";
 import { validateUser } from "@/lib/validate-user";
 import { useContext, useEffect, useState } from "react";
@@ -171,6 +171,9 @@ export default function RegisterPage() {
         setUser(null);
         await logout();
         push("/");
+      } else {
+        getCookie("USER");
+        push("/home");
       }
     })();
   }, [logout, push, setUser, validateJwt]);

@@ -1,8 +1,15 @@
 "use client";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  RadioGroup,
+  RadioGroupItem,
+} from "@/components/ui/radio-group/radio-group";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar/avatar";
 import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import { useMutation, useQuery } from "@apollo/client";
 import { UPDATE_USER_AVATAR_MUTATION } from "@/graphql/mutations/user-mutation";
 import { GET_USER } from "@/graphql/queries/user-query";

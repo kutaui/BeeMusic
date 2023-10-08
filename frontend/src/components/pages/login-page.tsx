@@ -2,7 +2,7 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import {
   Form,
   FormControl,
@@ -10,9 +10,9 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/ui/input/input";
 import Link from "next/link";
-import { deleteCookie, setCookie } from "cookies-next";
+import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import { useMutation } from "@apollo/client";
 import {
   LOGIN_MUTATION,
@@ -152,6 +152,9 @@ export default function LoginPage() {
         setUser(null);
         await logout();
         push("/");
+      } else {
+        getCookie("USER");
+        push("/home");
       }
     })();
   }, [logout, push, setUser, validateJwt]);

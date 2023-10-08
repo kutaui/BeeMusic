@@ -25,7 +25,6 @@ const login = async (
   if (isPasswordValid) {
     // should check if user already has a token to optimize performance
     generateToken(res, user.id);
-    console.log(user);
     return user;
   } else {
     return throwError("Invalid Credentials.", "INVALID_CREDENTIALS");

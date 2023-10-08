@@ -8,7 +8,7 @@ import ProfileCard from "@/components/profile-card";
 import { useContext, useEffect, useLayoutEffect } from "react";
 import { AuthContext } from "@/providers";
 import { GET_POSTS_BY_USER } from "@/graphql/queries/post-query";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import Link from "next/link";
 
 export default function UserPage() {

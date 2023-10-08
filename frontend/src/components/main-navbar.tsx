@@ -3,16 +3,21 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@/providers";
 import React, { useContext, useEffect, useState } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar/avatar";
 import avatarMap from "@/lib/avatars";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
+import { getCookie } from "cookies-next";
 
 export default function MainNavbar() {
+  const userCookie = getCookie("USER");
+  const userInCookie = userCookie && JSON.parse(userCookie);
   const { user } = useContext(AuthContext);
-
-  //@ts-ignore
-  const avatar = avatarMap[user?.avatar];
+  const avatar = avatarMap[user?.avatar || userInCookie.avatar];
 
   const { back } = useRouter();
   return (
@@ -34,8 +39,8 @@ export default function MainNavbar() {
 
       <Avatar className="">
         <Link passHref href={`/user/${user?.username}`}>
-          <AvatarImage src={avatar} alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage src={avatar} alt={`${user?.username}'s Avatar`} />
+          <AvatarFallback>{user?.username}</AvatarFallback>
         </Link>
       </Avatar>
     </div>

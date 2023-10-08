@@ -1,8 +1,12 @@
 "use client";
 import React, { useContext, useRef, useState } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar/avatar";
+import { Textarea } from "@/components/ui/textarea/textarea";
+import { Button } from "@/components/ui/button/button";
 import { useMutation } from "@apollo/client";
 import { CREATE_COMMENT_MUTATION } from "@/graphql/mutations/comment-mutation";
 import { GET_POST } from "@/graphql/queries/post-query";
