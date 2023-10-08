@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import CreatePost from "@/components/create-post";
+import CreatePost from "@/components/post/create-post";
 import { useMutation } from "@apollo/client";
 import {
   LOGOUT_MUTATION,

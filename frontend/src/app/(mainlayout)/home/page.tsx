@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "@/providers";
 import { useQuery } from "@apollo/client";
 import { GET_POSTS } from "@/graphql/queries/post-query";
-import PostCard from "@/components/post-card";
+import PostCard from "@/components/post/post-card";
 
 export default function Home() {
   const { user } = useContext(AuthContext);

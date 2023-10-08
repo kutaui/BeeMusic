@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import SpotifyPreview from "@/components/spotify-preview";
+import PostPreview from "@/components/post/post-preview";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -136,12 +136,13 @@ export default function PostCard({
   };
   const onCardClick = (event: React.ChangeEvent<EventTarget>) => {
     event.stopPropagation();
-    push(`http://localhost:3000/user/${username}/${postId}`);
+
+    push(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/user/${username}/${postId}`);
   };
 
   const onProfileClick = (event: React.ChangeEvent<EventTarget>) => {
     event.stopPropagation();
-    push(`http://localhost:3000/user/${username}`);
+    push(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/user/${username}`);
   };
 
   return (
@@ -152,7 +153,7 @@ export default function PostCard({
       >
         <CardHeader className="flex flex-row w-[80%]">
           <Avatar onClick={onProfileClick} className="">
-            <AvatarImage src={userAvatar} alt="@shadcn" />
+            <AvatarImage src={userAvatar} alt={`${username}'s Avatar`} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
 
@@ -161,7 +162,7 @@ export default function PostCard({
           </CardTitle>
         </CardHeader>
         <CardContent className="break-words h-[50%]">
-          <SpotifyPreview
+          <PostPreview
             provider={provider}
             url={url}
             image={image}

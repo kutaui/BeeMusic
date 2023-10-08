@@ -12,7 +12,7 @@ type CommentCardProps = {
   avatar: string;
 };
 
-//add ... dots on the corner and put deletecomment with a alert to confirm
+//TODO:add ... dots on the corner and put deletecomment with a alert to confirm
 
 export function CommentCard({ username, body, avatar }: CommentCardProps) {
   const userAvatar = avatarMap[avatar];

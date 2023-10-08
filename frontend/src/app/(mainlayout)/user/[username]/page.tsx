@@ -3,7 +3,7 @@
 import { useQuery } from "@apollo/client";
 import { GET_USER } from "@/graphql/queries/user-query";
 import { useParams } from "next/navigation";
-import PostCard from "@/components/post-card";
+import PostCard from "@/components/post/post-card";
 import ProfileCard from "@/components/profile-card";
 import { useContext, useEffect, useLayoutEffect } from "react";
 import { AuthContext } from "@/providers";

@@ -2,11 +2,11 @@
 import { useParams } from "next/navigation";
 import { useQuery } from "@apollo/client";
 import { GET_POST } from "@/graphql/queries/post-query";
-import PostCard from "@/components/post-card";
-import { CommentCard } from "@/components/comment-card";
+import PostCard from "@/components/post/post-card";
+import { CommentCard } from "@/components/comment/comment-card";
 import { useContext } from "react";
 import { AuthContext } from "@/providers";
-import CreateComment from "@/components/create-comment";
+import CreateComment from "@/components/comment/create-comment";
 
 export default function PostPage() {
   const params = useParams();

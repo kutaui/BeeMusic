@@ -8,12 +8,22 @@ import { CREATE_COMMENT_MUTATION } from "@/graphql/mutations/comment-mutation";
 import { GET_POST } from "@/graphql/queries/post-query";
 import avatarMap from "@/lib/avatars";
 import { AuthContext } from "@/providers";
+import * as z from "zod";
+import { toast } from "@/components/ui/use-toast";
+import DOMPurify from "dompurify";
 
 type CreateCommentProps = {
   postId: string;
 };
 
-//TODO:validate input and put max length and handle errors
+const errorMessage = "Your comment cannot exceed 180 characters.";
+
+const inputSchema = z.object({
+  body: z
+    .string()
+    .min(1, { message: errorMessage })
+    .max(180, { message: errorMessage }),
+});
 
 export default function CreateComment({ postId }: CreateCommentProps) {
   const [commentInput, setCommentInput] = useState("");
@@ -38,16 +48,37 @@ export default function CreateComment({ postId }: CreateCommentProps) {
 
   const onCreateCommentHandler = async (event: any) => {
     event.preventDefault();
+    const sanitizedCommentInput = DOMPurify.sanitize(commentInput);
+    const validationResult = inputSchema.safeParse({
+      body: sanitizedCommentInput,
+    });
     try {
-      await createComment({
-        variables: {
-          body: commentInput,
-          postId: parsedId,
-        },
+      if (!validationResult.success) {
+        toast({
+          title: "Comment Invalid",
+          description: errorMessage,
+        });
+        return;
+      }
+      if (validationResult.success) {
+        await createComment({
+          variables: {
+            body: sanitizedCommentInput,
+            postId: parsedId,
+          },
+        });
+        setCommentInput("");
+      } else {
+        toast({
+          title: "Something went wrong",
+          description: "Please try again.",
+        });
+      }
+    } catch (error: any) {
+      toast({
+        title: "Something went wrong",
+        description: error.message,
       });
-      setCommentInput("");
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -66,7 +97,7 @@ export default function CreateComment({ postId }: CreateCommentProps) {
             onInput={handleInput}
             placeholder="Post your reply"
             className="resize-none border-0 text-lg placeholder:text-gray-400 w-full"
-            maxLength={200}
+            maxLength={180}
           />
         </div>
       </div>

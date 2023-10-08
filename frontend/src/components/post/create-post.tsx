@@ -16,6 +16,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import * as z from "zod";
+import DOMPurify from "dompurify";
 
 const errorMessage =
   "Please enter a valid song URL that does not exceed 100 characters.";
@@ -43,8 +44,11 @@ export default function CreatePost() {
 
   const handleCreatePost = async (event: any) => {
     event.preventDefault();
+    const sanitizedCommentInput = DOMPurify.sanitize(postInput);
 
-    const validationResult = inputSchema.safeParse({ body: postInput });
+    const validationResult = inputSchema.safeParse({
+      body: sanitizedCommentInput,
+    });
     try {
       if (!validationResult.success) {
         toast({
@@ -56,7 +60,7 @@ export default function CreatePost() {
       if (validationResult.success) {
         await createPost({
           variables: {
-            body: postInput,
+            body: sanitizedCommentInput,
           },
         });
         toast({

@@ -10,7 +10,7 @@ type SpotifyPreviewProps = {
   provider: string;
 };
 
-export default function SpotifyPreview({
+export default function PostPreview({
   url,
   title,
   description,
