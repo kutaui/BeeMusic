@@ -11,8 +11,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import PostPreview from "@/components/post/post-preview";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { useApolloClient, useMutation, useQuery } from "@apollo/client";
+import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
 import { LIKE_MUTATION } from "@/graphql/mutations/like-mutation";
 import {
   GET_POST,
@@ -20,6 +20,20 @@ import {
   GET_POSTS_BY_USER,
 } from "@/graphql/queries/post-query";
 import avatarMap from "@/lib/avatars";
+import { DELETE_POST_MUTATION } from "@/graphql/mutations/post-mutation";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { toast } from "@/components/ui/use-toast";
+import { AlertDialogOverlay } from "@radix-ui/react-alert-dialog";
 
 type PostCardFooterProps = {
   postId: string;
@@ -71,6 +85,81 @@ export function PostCardFooter({
         <p className="w-full truncate pl-1">{commentsLength}</p>
       </Link>
     </div>
+  );
+}
+
+type DeletePostDialogProps = {
+  children: React.ReactNode;
+  postId: string;
+  username: string;
+};
+
+//you don't need AlertDialogOverlay, but in this case I added it to handle the event propagation, if I didn't add that, when user clicks outside of the dialog, they would get redirected to the post page
+function DeletePostDialog({
+  children,
+  postId,
+  username,
+}: DeletePostDialogProps) {
+  const parsedId = parseInt(postId);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [deletePost] = useMutation(DELETE_POST_MUTATION);
+  const { push } = useRouter();
+  const onOpenDialog = (event: React.ChangeEvent<EventTarget>) => {
+    event.stopPropagation();
+    setOpenDialog(true);
+  };
+
+  const onCloseDialog = (event: React.ChangeEvent<EventTarget>) => {
+    event.stopPropagation();
+    setOpenDialog(false);
+  };
+
+  const onDeletePost = async (event: React.ChangeEvent<EventTarget>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    try {
+      await deletePost({
+        variables: { postId: parsedId },
+        refetchQueries: [
+          { query: GET_POSTS_BY_USER, variables: { username: username } },
+          { query: GET_POSTS },
+        ],
+      });
+      toast({
+        title: "Post Deleted",
+        description: "Your post has been deleted.",
+      });
+      push("/home");
+    } catch (error) {
+      console.log("Error deleting post:", error);
+    }
+  };
+  return (
+    <AlertDialog open={openDialog} onOpenChange={setOpenDialog}>
+      <AlertDialogTrigger asChild onClick={onOpenDialog}>
+        {children}
+      </AlertDialogTrigger>
+      <AlertDialogOverlay onClick={onCloseDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-red-600">
+              Delete Post?
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              Do you want to delete this post? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={onCloseDialog}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={onDeletePost}>
+              Delete Post
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialogOverlay>
+    </AlertDialog>
   );
 }
 
@@ -148,10 +237,10 @@ export default function PostCard({
   return (
     <>
       <Card
-        className="border-b-[1px] hover:bg-gray-100 hover:cursor-pointer max-w-[600px] mx-auto "
+        className="border-b-[1px] hover:bg-gray-100 hover:cursor-pointer max-w-[600px] mx-auto relative"
         onClick={onCardClick}
       >
-        <CardHeader className="flex flex-row w-[80%]">
+        <CardHeader className="flex flex-row w-[80%] ">
           <Avatar onClick={onProfileClick} className="">
             <AvatarImage src={userAvatar} alt={`${username}'s Avatar`} />
             <AvatarFallback>CN</AvatarFallback>
@@ -160,6 +249,13 @@ export default function PostCard({
           <CardTitle onClick={onProfileClick} className="pl-2 hover:underline">
             @{username}
           </CardTitle>
+          <div className="absolute right-10 flex items-center justify-center ">
+            <DeletePostDialog postId={postId} username={username}>
+              <h2 className="font-black border border-black w-8 h-8 rounded-full text-center bg-black text-white hover:bg-white hover:text-black ">
+                ...
+              </h2>
+            </DeletePostDialog>
+          </div>
         </CardHeader>
         <CardContent className="break-words h-[50%]">
           <PostPreview

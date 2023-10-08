@@ -20,7 +20,7 @@ type Mutation {
 	createPost(body: String!): Post!
 	createComment(postId: Int!, body: String!): Comment!
 	createLike(postId: Int!): String!
-	deletePost(postId: Int!): String!
+	deletePost(postId: Int!): Post!
 	logout: String!
 	validateJwt: User!
 }

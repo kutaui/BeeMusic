@@ -25,7 +25,6 @@ export default function PostPage() {
   if (loading) {
     return <div>Loading...</div>;
   }
-  console.log(data.post.comments);
   if (!data)
     return (
       <div className="flex justify-center text-lg all:text-3xl font-bold p-10">

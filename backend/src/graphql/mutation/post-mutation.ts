@@ -64,13 +64,24 @@ const deletePost = async (
   }
 
   try {
-    const post = await db.post.delete({
+    await db.comment.deleteMany({
+      where: {
+        postId,
+      },
+    });
+    await db.like.deleteMany({
+      where: {
+        postId,
+      },
+    });
+
+    return await db.post.delete({
       where: {
         id: postId,
       },
     });
-    return "Post deleted successfully.";
   } catch (error) {
+    console.log(error);
     return throwError("Error deleting post.", "POST_DELETION_ERROR");
   }
 };
