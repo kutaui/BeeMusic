@@ -12,21 +12,16 @@ const buttonVariants = cva(
         default: "bg-white text-black hover:bg-black hover:text-white border",
         destructive:
           "bg-white border border-red-700 hover:border-white text-white-foreground hover:bg-red-700 hover:text-white",
-        outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+        outline: "border border-gray-300 hover:border-black bg-white  ",
         round:
           "rounded-full bg-black text-white hover:bg-white hover:text-black border border-black",
         formMB:
-          "w-full border bg-white rounded-2xl active:bg-black active:text-white border-black text-xl",
+          "w-full border bg-white rounded-2xl active:bg-black active:text-white  hover:bg-black hover:text-white border-black text-xl",
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-8 px-3",
         lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
       },
     },
     defaultVariants: {
