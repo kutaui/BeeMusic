@@ -20,7 +20,7 @@ import {
   VALIDATE_JWT_MUTATION,
 } from "@/graphql/mutations/user-mutation";
 import { useContext, useEffect } from "react";
-import { AuthContext } from "@/providers";
+import { AuthContext } from "@/components/providers";
 import { toast, useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { validateUser } from "@/lib/validate-user";

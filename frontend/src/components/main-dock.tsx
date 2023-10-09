@@ -12,7 +12,7 @@ import { useContext, useEffect } from "react";
 import { validateUser } from "@/lib/validate-user";
 import { toast } from "@/components/ui/use-toast";
 import { deleteCookie } from "cookies-next";
-import { AuthContext } from "@/providers";
+import { AuthContext } from "@/components/providers";
 
 export default function MainDock() {
   const { push, refresh } = useRouter();

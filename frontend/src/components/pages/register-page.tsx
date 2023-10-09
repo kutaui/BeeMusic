@@ -22,7 +22,7 @@ import {
   REGISTER_MUTATION,
   VALIDATE_JWT_MUTATION,
 } from "@/graphql/mutations/user-mutation";
-import { AuthContext } from "@/providers";
+import { AuthContext } from "@/components/providers";
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { toast, useToast } from "@/components/ui/use-toast";

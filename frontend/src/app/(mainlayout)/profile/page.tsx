@@ -16,7 +16,7 @@ import { GET_USER } from "@/graphql/queries/user-query";
 import { getCookie, setCookie } from "cookies-next";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
-import { AuthContext } from "@/providers";
+import { AuthContext } from "@/components/providers";
 
 const avatars = [
   {

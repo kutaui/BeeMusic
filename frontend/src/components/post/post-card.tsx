@@ -38,7 +38,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { toast } from "@/components/ui/use-toast";
 import { AlertDialogOverlay } from "@radix-ui/react-alert-dialog";
-import { AuthContext } from "@/providers";
+import { AuthContext } from "@/components/providers";
 
 type PostCardFooterProps = {
   postId: string;

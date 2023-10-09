@@ -1,6 +1,6 @@
 "use client";
 import { useContext, useEffect } from "react";
-import { AuthContext } from "@/providers";
+import { AuthContext } from "@/components/providers";
 import { useQuery } from "@apollo/client";
 import { GET_POSTS } from "@/graphql/queries/post-query";
 import PostCard from "@/components/post/post-card";

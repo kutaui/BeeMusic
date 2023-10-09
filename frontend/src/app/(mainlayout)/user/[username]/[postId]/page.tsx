@@ -5,7 +5,7 @@ import { GET_POST } from "@/graphql/queries/post-query";
 import PostCard from "@/components/post/post-card";
 import { CommentCard } from "@/components/comment/comment-card";
 import { useContext } from "react";
-import { AuthContext } from "@/providers";
+import { AuthContext } from "@/components/providers";
 import CreateComment from "@/components/comment/create-comment";
 
 export default function PostPage() {

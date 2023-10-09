@@ -11,7 +11,7 @@ import { useMutation } from "@apollo/client";
 import { CREATE_COMMENT_MUTATION } from "@/graphql/mutations/comment-mutation";
 import { GET_POST } from "@/graphql/queries/post-query";
 import avatarMap from "@/lib/avatars";
-import { AuthContext } from "@/providers";
+import { AuthContext } from "@/components/providers";
 import * as z from "zod";
 import { toast } from "@/components/ui/use-toast";
 import DOMPurify from "dompurify";

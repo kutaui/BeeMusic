@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { AuthContext } from "@/providers";
+import { AuthContext } from "@/components/providers";
 import React, { useContext, useEffect, useState } from "react";
 import {
   Avatar,

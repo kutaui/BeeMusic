@@ -12,7 +12,7 @@ import {
   LOGOUT_MUTATION,
   VALIDATE_JWT_MUTATION,
 } from "@/graphql/mutations/user-mutation";
-import { AuthContext } from "@/providers";
+import { AuthContext } from "@/components/providers";
 
 function Navbar() {
   const { push, refresh } = useRouter();
