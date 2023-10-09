@@ -10,6 +10,7 @@ import { context } from "./utils/middleware-context.js";
 import { Query } from "./graphql/query/index.js";
 import { Mutation } from "./graphql/mutation/index.js";
 import getMetaData from "metadata-scraper";
+import { db } from "./utils/db.js";
 
 dotenv.config();
 

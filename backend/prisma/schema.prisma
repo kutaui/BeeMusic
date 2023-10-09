@@ -20,14 +20,16 @@ enum Avatar {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  email    String    @unique
-  username String    @unique
-  password String
-  avatar   Avatar    @default(AVATAR_1)
-  posts    Post[]
-  comments Comment[]
-  likes    Like[]
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  username  String    @unique
+  password  String
+  avatar    Avatar    @default(AVATAR_1)
+  posts     Post[]
+  comments  Comment[]
+  likes     Like[]
+  followers User[]    @relation(name: "Followers")
+  follows   User[]    @relation(name: "Followers")
 }
 
 model Post {
