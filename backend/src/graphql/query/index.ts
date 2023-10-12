@@ -1,6 +1,6 @@
-import { UserQuery } from "./user-query.ts";
-import { PostQuery } from "./post-query.ts";
-import { commentQuery } from "./comment-query.ts";
+import { UserQuery } from "./user-query.js";
+import { PostQuery } from "./post-query.js";
+import { commentQuery } from "./comment-query.js";
 
 export const Query = {
   ...UserQuery,

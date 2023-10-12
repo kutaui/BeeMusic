@@ -8,7 +8,7 @@
     "build": "npm install && tsc -p .",
     "watch": "tsc -w",
     "start": "nodemon dist/index.js",
-    "test": "jest --config jest.config.ts ./__tests__"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",

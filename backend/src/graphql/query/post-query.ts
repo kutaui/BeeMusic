@@ -1,4 +1,4 @@
-import { db } from "../../utils/db.ts";
+import { db } from "../../utils/db.js";
 
 const posts = async () => {
   try {

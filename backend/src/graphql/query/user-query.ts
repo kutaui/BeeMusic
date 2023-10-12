@@ -1,6 +1,6 @@
-import { db } from "../../utils/db.ts";
+import { db } from "../../utils/db.js";
 import { Response } from "express";
-import { throwError } from "../../utils/throw-error.ts";
+import { throwError } from "../../utils/throw-error.js";
 
 export const UserQuery = {
   users: async () => {

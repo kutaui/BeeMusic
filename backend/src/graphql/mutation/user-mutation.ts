@@ -1,9 +1,9 @@
 import express from "express";
-import { db } from "../../utils/db.ts";
+import { db } from "../../utils/db.js";
 import { User } from "@prisma/client";
 import bcrypt from "bcryptjs";
-import generateToken from "../../utils/generate-token.ts";
-import { throwError } from "../../utils/throw-error.ts";
+import generateToken from "../../utils/generate-token.js";
+import { throwError } from "../../utils/throw-error.js";
 
 const login = async (
   _: unknown,
