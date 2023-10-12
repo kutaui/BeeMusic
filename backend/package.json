@@ -6,9 +6,9 @@
   "main": "index.js",
   "scripts": {
     "build": "npm install && tsc -p .",
-    "watch": "tsc -w",
+    "watch": "tsc --watch",
     "start": "nodemon dist/index.js",
-    "test": "jest"
+    "test": "jest --config jest.config.ts ./__tests__"
   },
   "keywords": [],
   "author": "",

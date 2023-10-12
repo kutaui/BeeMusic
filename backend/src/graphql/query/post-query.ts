@@ -1,4 +1,5 @@
 import { db } from "../../utils/db.js";
+import { throwError } from "../../utils/throw-error.js";
 
 const posts = async () => {
   try {
@@ -19,6 +20,17 @@ const postsByUser = async (
   { userId }: { userId: number },
   __: unknown,
 ) => {
+  const user = await db.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+  console.log(user);
+
+  if (!user) {
+    return throwError("User not found", "USER_NOT_FOUND");
+  }
+
   try {
     return db.post.findMany({
       where: {

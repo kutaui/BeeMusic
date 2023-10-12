@@ -15,32 +15,32 @@ import { db } from "./utils/db.js";
 dotenv.config();
 
 const resolvers = {
-  Query,
-  Mutation,
+    Query,
+    Mutation,
 };
 
 const app = express();
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+    typeDefs,
+    resolvers,
 });
 
 await server.start();
 
 app.use(
-  "/",
-  cors<CorsRequest>({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-  }),
-  bodyParser.json(),
-  cookieParser(),
-  expressMiddleware(server, {
-    context,
-  }),
+    "/",
+    cors<CorsRequest>({
+        origin: process.env.FRONTEND_URL,
+        credentials: true,
+    }),
+    bodyParser.json(),
+    cookieParser(),
+    expressMiddleware(server, {
+        context,
+    }),
 );
 
 app.listen(4000, () => {
-  console.log("Server is listening on port 4000");
+    console.log("Server is listening on port 4000");
 });
