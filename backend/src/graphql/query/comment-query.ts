@@ -1,5 +1,5 @@
 import express from "express";
-import { db } from "../../utils/db.js";
+import { db } from "../../utils/db.ts";
 
 const commentsByPost = async (
   _: unknown,

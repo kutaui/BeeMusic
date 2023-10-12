@@ -1,7 +1,7 @@
-import { postType } from "./post.js";
-import { userType } from "./user.js";
-import { commentType } from "./comment.js";
-import { likeType } from "./like.js";
+import { postType } from "./post.ts";
+import { userType } from "./user.ts";
+import { commentType } from "./comment.ts";
+import { likeType } from "./like.ts";
 
 const baseTypeDefs = `
 type Query {

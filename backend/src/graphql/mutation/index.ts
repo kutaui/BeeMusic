@@ -1,7 +1,7 @@
-import { userMutation } from "./user-mutation.js";
-import { postMutation } from "./post-mutation.js";
-import { commentMutation } from "./comment-mutation.js";
-import { likeMutation } from "./like-mutation.js";
+import { userMutation } from "./user-mutation.ts";
+import { postMutation } from "./post-mutation.ts";
+import { commentMutation } from "./comment-mutation.ts";
+import { likeMutation } from "./like-mutation.ts";
 
 export const Mutation = {
   ...userMutation,

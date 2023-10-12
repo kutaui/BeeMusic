@@ -1,6 +1,6 @@
 import { Response } from "express";
-import { db } from "../../utils/db.js";
-import { throwError } from "../../utils/throw-error.js";
+import { db } from "../../utils/db.ts";
+import { throwError } from "../../utils/throw-error.ts";
 import getMetaData from "metadata-scraper";
 
 const createPost = async (
