@@ -41,7 +41,8 @@ const createPost = async (
       });
     } catch (error) {
       console.log(error);
-      return throwError("Error creating post.", "POST_CREATION_ERROR");
+      return error;
+      // return throwError("Error creating post.", "POST_CREATION_ERROR");
     }
   } else if (!body.startsWith("https://open.spotify.com/")) {
     return throwError(

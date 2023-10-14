@@ -25,7 +25,6 @@ const postsByUser = async (
       id: userId,
     },
   });
-  console.log(user);
 
   if (!user) {
     return throwError("User not found", "USER_NOT_FOUND");

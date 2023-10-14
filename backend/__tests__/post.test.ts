@@ -64,3 +64,22 @@ it("should return error if user not found", async () => {
   expect(result.body.singleResult.errors).toBeTruthy();
   expect(result.body.singleResult.data).toBeFalsy();
 });
+
+it("should return post by id", async () => {
+  const result = await testServer.executeOperation({
+    query: `
+        query Post($id: Int!) {
+         post(id: $id) {
+         title
+        }
+        },
+        `,
+    variables: {
+      id: 1,
+    },
+  });
+  assert(result.body.kind === "single");
+  expect(result).toBeTruthy();
+  expect(result.body.singleResult.data).toHaveProperty("post");
+  expect(result.body.singleResult.errors).toBeFalsy();
+});
