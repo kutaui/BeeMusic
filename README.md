@@ -70,7 +70,7 @@ My main goal in most of my projects is to make UX as smooth as possible. In this
 
 - [ ] More customization for profile (Bio,change username etc.)
 - [ ] Add YouTube preview
-- [ ] Add tests
+- [x] ~~Add tests~~ (Added tests for backend)
 - [ ] Users can like comments
 - [ ] Maybe follow system
 - [ ] Add tabs for browsing posts (Followed vs World)

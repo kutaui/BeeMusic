@@ -1,3 +1,6 @@
+import "@testing-library/jest-dom/extend-expect";
+import "@testing-library/jest-dom";
+
 type Post = {
   id: string;
   title: string;
