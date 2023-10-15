@@ -79,7 +79,8 @@ function LoginForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 w-[70%] mx-auto  max-w-[700px]  "
+        className="space-y-4 w-[70%] mx-auto max-w-[700px]"
+        aria-label="Login Form"
       >
         <FormField
           control={form.control}
@@ -91,6 +92,7 @@ function LoginForm() {
                   className=""
                   placeholder="Email"
                   type="email"
+                  aria-label="Email"
                   {...field}
                 />
               </FormControl>
@@ -108,6 +110,7 @@ function LoginForm() {
                   className=""
                   placeholder="Password"
                   type="password"
+                  aria-label="Password"
                   {...field}
                 />
               </FormControl>

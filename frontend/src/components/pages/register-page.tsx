@@ -75,7 +75,7 @@ function RegisterForm() {
         });
       } else {
         toast({
-          title: "Error Signing In",
+          title: "Error Registering",
           description: "Something went wrong. Please try again.",
         });
       }
@@ -86,7 +86,8 @@ function RegisterForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 w-[70%] mx-auto max-w-[700px]  "
+        className="space-y-4 w-[70%] mx-auto max-w-[700px]"
+        aria-label="Register Form"
       >
         <FormField
           control={form.control}
@@ -98,6 +99,7 @@ function RegisterForm() {
                   className=""
                   placeholder="Email"
                   type="email"
+                  aria-label="Email"
                   {...field}
                 />
               </FormControl>
@@ -111,7 +113,11 @@ function RegisterForm() {
           render={({ field }) => (
             <FormItem>
               <FormControl className="rounded-xl placeholder:text-gray-500 text-lg h-12 border-black border-2 font-[Montserrat]">
-                <Input className="" placeholder="Username" {...field} />
+                <Input
+                  aria-label="Username"
+                  placeholder="Username"
+                  {...field}
+                />
               </FormControl>
               <FormMessage className="text-red-600 text-xs" />
             </FormItem>
@@ -124,9 +130,9 @@ function RegisterForm() {
             <FormItem>
               <FormControl className="rounded-xl placeholder:text-gray-500 text-lg h-12 border-black border-2 font-[Montserrat] peer">
                 <Input
-                  className=""
                   placeholder="Password"
                   type="password"
+                  aria-label="Password"
                   {...field}
                 />
               </FormControl>

@@ -7,10 +7,21 @@ import {
 } from "@apollo/client";
 import React, { createContext, useEffect, useState } from "react";
 import { getCookie } from "cookies-next";
+import { User } from "@/global";
+import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
+import { __DEV__ } from "@apollo/client/utilities/globals";
+import fetch from "cross-fetch";
+
+if (__DEV__) {
+  // Adds messages only in a dev environment
+  loadDevMessages();
+  loadErrorMessages();
+}
 
 const link = createHttpLink({
   uri: process.env.NEXT_PUBLIC_BACKEND_URL,
   credentials: "include",
+  fetch,
 });
 
 const client = new ApolloClient({

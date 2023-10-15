@@ -38,7 +38,7 @@ export function CommentCard({ username, body, avatar }: CommentCardProps) {
           as={`/user/${username}`}
         >
           <Avatar className="">
-            <AvatarImage src={userAvatar} alt="@shadcn" />
+            <AvatarImage src={userAvatar} alt={`${username}'s Avatar`} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </Link>

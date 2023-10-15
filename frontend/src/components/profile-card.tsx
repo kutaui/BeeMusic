@@ -15,7 +15,11 @@ export default function ProfileCard({ username, avatar }: ProfileCardProps) {
   return (
     <div className="flex flex-col items-center p-4  border-b">
       <Avatar className="w-20 h-20">
-        <AvatarImage src={userAvatar} alt="@shadcn" className="" />
+        <AvatarImage
+          src={userAvatar}
+          alt={`${username}'s Avatar`}
+          className=""
+        />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
       <h2 className="text-2xl font-bold ">@{username}</h2>
