@@ -17,15 +17,21 @@ type Story = StoryObj<typeof Card>;
 export const CardBase: Story = {
   args: {
     title: "Card",
+    // @ts-ignore
+    description: "Card description",
+    content: "Card content",
+    footer: "Card footer",
   },
   render: (args) => (
     <Card {...args} className="border w-96">
       <CardHeader>
-        <CardTitle>{args.title}</CardTitle>
-        <CardDescription>Card Description</CardDescription>
+        <CardTitle className="border">{args.title}</CardTitle>
+        {/* @ts-ignore */}
+        <CardDescription className="border">{args.description}</CardDescription>
       </CardHeader>
-      <CardContent>Card Content</CardContent>
-      <CardFooter>Card Footer</CardFooter>
+      <CardContent className="border">{args.content}</CardContent>
+      {/* @ts-ignore */}
+      <CardFooter className="border">{args.footer}</CardFooter>
     </Card>
   ),
 };

@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-function Skeleton({
+function PostSkeleton({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
@@ -8,8 +8,22 @@ function Skeleton({
     <div
       className={cn("animate-pulse rounded-md bg-muted", className)}
       {...props}
-    />
-  )
+    ></div>
+  );
 }
 
-export { Skeleton }
+function CommentSkeleton({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      className={cn("animate-pulse rounded-md bg-muted", className)}
+      {...props}
+    >
+      {" "}
+    </div>
+  );
+}
+
+export { PostSkeleton, CommentSkeleton };

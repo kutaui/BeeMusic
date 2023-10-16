@@ -16,9 +16,30 @@ export default meta;
 
 type Story = StoryObj<typeof Button>;
 
-export const Base: Story = {
+export const Default: Story = {
   args: {
     children: "Button",
     variant: "default",
+  },
+};
+
+export const Destructive: Story = {
+  args: {
+    children: "Button",
+    variant: "destructive",
+  },
+};
+
+export const Outline: Story = {
+  args: {
+    children: "Button",
+    variant: "outline",
+  },
+};
+
+export const Round: Story = {
+  args: {
+    children: "Button",
+    variant: "round",
   },
 };

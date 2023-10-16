@@ -1,0 +1,21 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as ButtonStories from './button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+<h3>Simple Button component that consists of 4 variants</h3>
+<br/>
+
+<h2>Default</h2>
+<Canvas of={ButtonStories.Default} />
+
+<h2>Outline</h2>
+<Canvas of={ButtonStories.Outline} />
+
+<h2>Destructive</h2>
+<Canvas of={ButtonStories.Destructive} />
+
+<h2>Round</h2>
+<Canvas of={ButtonStories.Round} />
