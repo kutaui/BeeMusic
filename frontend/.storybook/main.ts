@@ -10,7 +10,7 @@ const config: StorybookConfig = {
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
     "@storybook/addon-mdx-gfm",
-    "@storybook/addon-styling-webpack"
+    "@storybook/addon-styling-webpack",
   ],
   framework: {
     name: "@storybook/nextjs",
@@ -25,6 +25,7 @@ const config: StorybookConfig = {
       config.resolve.alias = {
         ...config.resolve.alias,
         "@/components": path.resolve(__dirname, "../components"),
+        "@/components/ui": path.resolve(__dirname, "../components/ui"),
         "@/src": path.resolve(__dirname, "../src"),
         "@/lib/utils": path.resolve(__dirname, "../src/lib/utils"),
         "@/app": path.resolve(__dirname, "../src/app"),

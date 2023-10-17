@@ -32,8 +32,7 @@ export default function PostPreview({
         width={100}
         height={100}
         alt="Spotify Song Image"
-        placeholder="empty"
-        className="rounded-tl-xl rounded-bl-xl w-[30%]"
+        className="rounded-l-xl w-[30%]"
       />
       <div className="flex flex-col p-3 sm:text-2xl  sm:justify-center">
         <h3 className="text-gray-500">

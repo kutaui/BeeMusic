@@ -7,6 +7,7 @@ import { CommentCard } from "@/components/comment/comment-card";
 import { useContext } from "react";
 import { AuthContext } from "@/components/providers";
 import CreateComment from "@/components/comment/create-comment";
+import { Like, Reply } from "@/global";
 
 export default function PostPage() {
   const params = useParams();
