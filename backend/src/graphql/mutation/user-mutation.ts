@@ -131,10 +131,82 @@ const updateAvatar = async (
   }
 };
 
+const followUser = async (
+  _: unknown,
+  { username }: { username: string },
+  context: { res: express.Response; userId: number | null },
+) => {
+  const { res, userId } = context;
+
+  console.log("User ID:", userId); // Log the user's ID
+  console.log("Followed User ID:", username); // Log the ID you're trying to connect
+
+  if (!userId) {
+    res.clearCookie("token");
+    return throwError("Invalid Credentials.", "INVALID_CREDENTIALS");
+  }
+
+  try {
+    const updatedUser = await db.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        follows: {
+          connect: {
+            username,
+          },
+        },
+      },
+    });
+    return "Followed successfully.";
+  } catch (error) {
+    console.log(error);
+    return throwError("Something went wrong.", "SOMETHING_WENT_WRONG");
+  }
+};
+
+const unfollowUser = async (
+  _: unknown,
+  { username }: { username: string },
+  context: { res: express.Response; userId: number | null },
+) => {
+  const { res, userId } = context;
+
+  console.log("User ID:", userId); // Log the user's ID
+  console.log("Unfollowed User ID:", username); // Log the ID you're trying to connect
+
+  if (!userId) {
+    res.clearCookie("token");
+    return throwError("Invalid Credentials.", "INVALID_CREDENTIALS");
+  }
+
+  try {
+    const updatedUser = await db.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        follows: {
+          disconnect: {
+            username,
+          },
+        },
+      },
+    });
+    return "Unfollowed successfully.";
+  } catch (error) {
+    console.log(error);
+    return throwError("Something went wrong.", "SOMETHING_WENT_WRONG");
+  }
+};
+
 export const userMutation = {
   login,
   register,
   logout,
   validateJwt,
   updateAvatar,
+  followUser,
+  unfollowUser,
 };

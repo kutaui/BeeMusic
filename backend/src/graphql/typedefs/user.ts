@@ -7,5 +7,7 @@ type User {
 	posts: [Post]
 	comments: [Comment]
 	likes: [Like]
+	followers: [User]
+	follows: [User]
 }
 `;

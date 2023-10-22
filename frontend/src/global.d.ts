@@ -24,6 +24,8 @@ type User = {
   posts: Post[];
   comments: Reply[];
   likes: Like[];
+  followers: User[];
+  follows: User[];
 };
 
 type Reply = {

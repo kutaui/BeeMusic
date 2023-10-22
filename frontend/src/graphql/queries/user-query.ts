@@ -32,6 +32,14 @@ export const GET_USER = gql`
         id
         body
       }
+      followers {
+        avatar
+        username
+      }
+      follows {
+        avatar
+        username
+      }
     }
   }
 `;

@@ -17,6 +17,7 @@ import { getCookie, setCookie } from "cookies-next";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@/components/providers";
+import { AvatarEnum } from "@/global";
 
 const avatars = [
   {

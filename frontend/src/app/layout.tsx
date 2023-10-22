@@ -34,6 +34,7 @@ export const metadata: Metadata = {
   creator: "Kutaui",
 };
 
+
 export default function RootLayout({
   children,
 }: {
@@ -50,3 +51,4 @@ export default function RootLayout({
     </html>
   );
 }
+

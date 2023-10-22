@@ -10,6 +10,7 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar/avatar";
 import avatarMap from "@/lib/avatars";
+import { User } from "@/global";
 
 type ProfileCardProps = {
   username: string;

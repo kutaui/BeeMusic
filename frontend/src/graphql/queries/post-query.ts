@@ -81,3 +81,29 @@ export const GET_POST = gql`
     }
   }
 `;
+
+export const GET_POSTS_BY_FOLLOWING = gql`
+  query GetPostsByFollowing($userId: Int!) {
+    postsByFollowedUsers(userId: $userId) {
+      id
+      title
+      provider
+      url
+      description
+      image
+      user {
+        username
+        avatar
+      }
+      likes {
+        id
+        postId
+        userId
+      }
+      comments {
+        id
+        body
+      }
+    }
+  }
+`;

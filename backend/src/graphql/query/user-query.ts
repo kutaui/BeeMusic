@@ -4,7 +4,12 @@ import { throwError } from "../../utils/throw-error.js";
 
 export const UserQuery = {
   users: async () => {
-    return db.user.findMany();
+    return db.user.findMany({
+      include: {
+        followers: true,
+        follows: true,
+      },
+    });
   },
   user: async (
     _: any,
@@ -13,7 +18,13 @@ export const UserQuery = {
   ) => {
     const user = await db.user.findUnique({
       where: { username },
-      include: { posts: true, comments: true, likes: true },
+      include: {
+        posts: true,
+        comments: true,
+        likes: true,
+        followers: true,
+        follows: true,
+      },
     });
     if (!user) {
       return throwError("User Not Found", "USER_NOT_FOUND");

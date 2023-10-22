@@ -11,6 +11,7 @@ type Query {
 	postsByUser(userId: Int!): [Post]!
 	commentsByPost(postId: Int!): [Comment]!
 	post(id: Int!): Post!
+	postsByFollowedUsers(userId: Int!): [Post]!
 }
 
 type Mutation {
@@ -23,6 +24,8 @@ type Mutation {
 	deletePost(postId: Int!): Post!
 	logout: String!
 	validateJwt: User!
+	followUser(username: String!): String!
+	unfollowUser(username: String!): String!
 }
 `;
 

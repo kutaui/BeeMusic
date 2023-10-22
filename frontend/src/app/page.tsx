@@ -14,6 +14,9 @@ import {
 } from "@/graphql/mutations/user-mutation";
 import { AuthContext } from "@/components/providers";
 
+
+
+
 function Navbar() {
   const { push, refresh } = useRouter();
   const [validateJwt] = useMutation(VALIDATE_JWT_MUTATION);

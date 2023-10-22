@@ -11,6 +11,7 @@ const config: StorybookConfig = {
     "@storybook/addon-interactions",
     "@storybook/addon-mdx-gfm",
     "@storybook/addon-styling-webpack",
+    "@storybook/addon-a11y",
   ],
   framework: {
     name: "@storybook/nextjs",

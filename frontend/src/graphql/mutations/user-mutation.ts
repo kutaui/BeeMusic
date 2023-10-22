@@ -47,3 +47,15 @@ export const UPDATE_USER_AVATAR_MUTATION = gql`
     }
   }
 `;
+
+export const FOLLOW_USER_MUTATION = gql`
+  mutation FollowUser($username: String!) {
+    followUser(username: $username)
+  }
+`;
+
+export const UNFOLLOW_USER_MUTATION = gql`
+  mutation UnfollowUser($username: String!) {
+    unfollowUser(username: $username)
+  }
+`;

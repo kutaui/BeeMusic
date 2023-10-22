@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "@apollo/client";
+import { ApolloQueryResult, useQuery } from "@apollo/client";
 import { GET_USER } from "@/graphql/queries/user-query";
 import { useParams } from "next/navigation";
 import PostCard from "@/components/post/post-card";
@@ -10,15 +10,25 @@ import { AuthContext } from "@/components/providers";
 import { GET_POSTS_BY_USER } from "@/graphql/queries/post-query";
 import { Button } from "@/components/ui/button/button";
 import Link from "next/link";
+import { Like, Post, User } from "@/global";
 
 export default function UserPage() {
   const { user } = useContext(AuthContext);
   const params = useParams();
-  const { data, loading } = useQuery(GET_USER, {
+  const {
+    data,
+    loading,
+    refetch: refetchUser,
+  }: {
+    data: { user: User } | undefined;
+    loading: boolean;
+    refetch: any;
+  } = useQuery(GET_USER, {
     variables: { username: params.username },
     fetchPolicy: "no-cache",
   });
-  const userId = parseInt(data?.user?.id);
+  const userId = parseInt(String(data?.user?.id)); // Use a default value of 0, or any other appropriate value.
+
   const { data: userPosts } = useQuery(GET_POSTS_BY_USER, {
     variables: { userId },
     fetchPolicy: "no-cache",
@@ -37,7 +47,13 @@ export default function UserPage() {
     );
   return (
     <main className="max-w-[800px] mx-auto">
-      <ProfileCard username={data?.user.username} avatar={data?.user.avatar} />
+      <ProfileCard
+        username={data?.user.username}
+        avatar={data?.user.avatar}
+        following={data?.user?.follows}
+        followers={data?.user?.followers}
+        refetchUser={refetchUser}
+      />
       <div className="flex flex-col items-center border-b p-6">
         {params.username === user?.username && (
           <Link passHref href="/profile" className="-10">
