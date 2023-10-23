@@ -69,14 +69,14 @@ My main goal in most of my projects is to make UX as smooth as possible. In this
 ### Roadmap
 
 - [x] ~~Add tests~~ (Added tests for backend and frontend)
-- [ ] Add tabs for browsing posts (Followed vs World)
-- [ ] Add follow system
+- [x] ~~Add tabs for browsing posts~~ (Followed vs World)
+- [x] ~~Add follow system~~
 - [x] ~~Improve the design system with Storybook~~
-- [ ] Add YouTube preview
 - [ ] Users can like comments
-- [ ] Make the app accessible as much as possible
+- [ ] Add YouTube preview
 - [ ] Handle errors more gracefully
 - [ ] Cleanup the code, optimize the queries
 - [ ] Give more importance to server components, but don't stress too much.
 - [ ] More customization for profile (Bio,change username etc.)
+- [ ] Make the app accessible as much as possible
 - [ ] **MAYBE** add real time updates with GraphQL subscriptions

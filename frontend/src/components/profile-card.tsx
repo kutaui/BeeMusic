@@ -36,19 +36,25 @@ export default function ProfileCard({
   );
   const currentUser = user?.username === username;
 
-  const [followUser] = useMutation(FOLLOW_USER_MUTATION, {
-    variables: { username },
-    onCompleted: () => {
-      refetchUser();
-    },
-  });
+  const [followUser, { loading: followLoading }] = useMutation(
+    FOLLOW_USER_MUTATION,
+    {
+      variables: { username },
+      onCompleted: () => {
+        refetchUser();
+      },
+    }
+  );
 
-  const [unfollowUser] = useMutation(UNFOLLOW_USER_MUTATION, {
-    variables: { username },
-    onCompleted: () => {
-      refetchUser();
-    },
-  });
+  const [unfollowUser, { loading: unfollowLoading }] = useMutation(
+    UNFOLLOW_USER_MUTATION,
+    {
+      variables: { username },
+      onCompleted: () => {
+        refetchUser();
+      },
+    }
+  );
 
   // Function to handle following a user
   const handleFollowUser = async () => {
@@ -83,16 +89,20 @@ export default function ProfileCard({
       <h2 className="text-2xl font-bold ">@{username}</h2>
       {!currentUser &&
         (isFollowing ? (
-          <Button onClick={handleUnFollowUser}>Unfollow</Button>
+          <Button onClick={handleUnFollowUser} disabled={unfollowLoading}>
+            Unfollow
+          </Button>
         ) : (
-          <Button onClick={handleFollowUser}>Follow</Button>
+          <Button onClick={handleFollowUser} disabled={followLoading}>
+            Follow
+          </Button>
         ))}
 
       <div className=" flex justify-between w-52">
-        <h3 className="hover:underline hover:cursor-pointer">
+        <h3 className="hover:underline hover:cursor-pointer font-semibold">
           {following?.length} Following
         </h3>
-        <h3 className="hover:underline hover:cursor-pointer">
+        <h3 className="hover:underline hover:cursor-pointer font-semibold">
           {followers?.length} Followers
         </h3>
       </div>

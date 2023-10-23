@@ -34,7 +34,7 @@ const formSchema = z.object({
 });
 
 function LoginForm() {
-  const [login] = useMutation(LOGIN_MUTATION);
+  const [login, { loading }] = useMutation(LOGIN_MUTATION);
   const { setUser } = useContext(AuthContext);
   const { toast } = useToast();
   const { push } = useRouter();
@@ -125,8 +125,13 @@ function LoginForm() {
               Register
             </Link>
           </h3>
-          <Button variant="formMB" type="submit" className="h-14 ">
-            Sign In
+          <Button
+            variant="formMB"
+            type="submit"
+            className="h-14"
+            disabled={loading}
+          >
+            {loading ? "Signing In..." : "Sign In"}
           </Button>
         </div>
       </form>

@@ -40,7 +40,7 @@ const formSchema = z.object({
 });
 
 function RegisterForm() {
-  const [register] = useMutation(REGISTER_MUTATION);
+  const [register, { loading }] = useMutation(REGISTER_MUTATION);
   const { setUser } = useContext(AuthContext);
   const { toast } = useToast();
   const { push } = useRouter();
@@ -147,8 +147,13 @@ function RegisterForm() {
               Login
             </Link>
           </h3>
-          <Button variant="formMB" type="submit" className="h-14 ">
-            Register
+          <Button
+            variant="formMB"
+            type="submit"
+            className="h-14"
+            disabled={loading}
+          >
+            {loading ? "Creating account..." : "Register"}
           </Button>
         </div>
       </form>

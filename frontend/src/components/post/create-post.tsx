@@ -38,7 +38,7 @@ export default function CreatePost() {
   const [openDialog, setOpenDialog] = useState(false);
   const [postInput, setPostInput] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-  const [createPost, { error }] = useMutation(CREATE_POST_MUTATION, {
+  const [createPost, { loading }] = useMutation(CREATE_POST_MUTATION, {
     refetchQueries: [GET_POSTS, GET_POSTS_BY_USER],
   });
 
@@ -118,8 +118,12 @@ export default function CreatePost() {
             maxLength={120}
           />
           <DialogFooter>
-            <Button variant="round" onClick={handleCreatePost}>
-              Post
+            <Button
+              variant="round"
+              onClick={handleCreatePost}
+              disabled={loading}
+            >
+              {loading ? "Posting..." : "Post"}
             </Button>
           </DialogFooter>
         </DialogContent>

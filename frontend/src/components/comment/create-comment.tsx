@@ -33,7 +33,7 @@ export default function CreateComment({ postId }: CreateCommentProps) {
   const [commentInput, setCommentInput] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const parsedId = parseInt(postId);
-  const [createComment] = useMutation(CREATE_COMMENT_MUTATION, {
+  const [createComment, { loading }] = useMutation(CREATE_COMMENT_MUTATION, {
     refetchQueries: [{ query: GET_POST, variables: { id: parsedId } }],
   });
 
@@ -105,8 +105,13 @@ export default function CreateComment({ postId }: CreateCommentProps) {
           />
         </div>
       </div>
-      <Button onClick={onCreateCommentHandler} variant="round" className="w-20">
-        Post
+      <Button
+        onClick={onCreateCommentHandler}
+        variant="round"
+        className="w-20"
+        disabled={loading}
+      >
+        {loading ? "Posting..." : "Post"}
       </Button>
     </div>
   );
