@@ -47,6 +47,8 @@ const initialUser: User = {
   posts: [],
   comments: [],
   likes: [],
+  followers: [],
+  follows: [],
 };
 
 export const AuthContext = createContext<{

@@ -24,6 +24,9 @@ export default function PostPreview({
 
   return (
     <div
+      role="button"
+      tabIndex={0}
+      onKeyDown={handleSpotifyClick}
       onClick={handleSpotifyClick}
       className="border flex f rounded-xl hover:bg-gray-200 max-w-[600px]"
     >
