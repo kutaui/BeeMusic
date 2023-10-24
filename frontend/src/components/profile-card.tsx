@@ -13,6 +13,14 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/components/providers";
 import { User } from "@/global";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 type ProfileCardProps = {
   username: string;
@@ -99,12 +107,66 @@ export default function ProfileCard({
         ))}
 
       <div className=" flex justify-between w-52">
-        <h3 className="hover:underline hover:cursor-pointer font-semibold">
-          {following?.length} Following
-        </h3>
-        <h3 className="hover:underline hover:cursor-pointer font-semibold">
-          {followers?.length} Followers
-        </h3>
+        <Dialog>
+          <DialogTrigger>
+            <h3 className="hover:underline hover:cursor-pointer font-semibold">
+              {following?.length} Following
+            </h3>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Following</DialogTitle>
+            </DialogHeader>
+            <div>
+              {following?.map((user) => (
+                <DialogDescription
+                  key={user.id}
+                  className="flex items-center py-2 space-x-3"
+                >
+                  <Avatar className="w-10 h-10 sm:h-16 sm:w-16 ">
+                    <AvatarImage
+                      src={avatarMap[user.avatar]}
+                      alt={`${user.username}'s Avatar`}
+                      className=""
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                  <h3 className="font-semibold sm:text-2xl">{user.username}</h3>
+                </DialogDescription>
+              ))}
+            </div>
+          </DialogContent>
+        </Dialog>{" "}
+        <Dialog>
+          <DialogTrigger>
+            <h3 className="hover:underline hover:cursor-pointer font-semibold">
+              {followers?.length} Followers
+            </h3>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Followers</DialogTitle>
+            </DialogHeader>
+            <div>
+              {followers?.map((user) => (
+                <DialogDescription
+                  key={user.id}
+                  className="flex items-center py-2 space-x-3"
+                >
+                  <Avatar className="w-10 h-10 sm:h-16 sm:w-16 ">
+                    <AvatarImage
+                      src={avatarMap[user.avatar]}
+                      alt={`${user.username}'s Avatar`}
+                      className=""
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                  <h3 className="font-semibold sm:text-2xl">{user.username}</h3>
+                </DialogDescription>
+              ))}
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
