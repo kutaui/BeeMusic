@@ -9,9 +9,6 @@ import { typeDefs } from './graphql/typedefs/typedefs.js';
 import { context } from './utils/middleware-context.js';
 import { Query } from './graphql/query/index.js';
 import { Mutation } from './graphql/mutation/index.js';
-import getMetaData from 'metadata-scraper';
-import axios from 'axios';
-import * as cheerio from 'cheerio';
 
 dotenv.config();
 
@@ -26,8 +23,6 @@ const server = new ApolloServer({
     typeDefs,
     resolvers
 });
-
-
 
 
 await server.start();
@@ -45,7 +40,7 @@ app.use(
     })
 );
 
-app.listen(4000,  () => {
+app.listen(4000, () => {
 
 
     console.log('Server is listening on port 4000');

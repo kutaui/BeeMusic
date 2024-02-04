@@ -21,7 +21,6 @@ const createPost = async (
             const {data: html} = await axios.get(body);
             const $ = cheerio.load(html);
 
-            // Extract metadata
             const title = $('meta[property="og:title"]').attr('content');
             const description = $('meta[property="og:description"]').attr('content');
             const image = $('meta[property="og:image"]').attr('content');
