@@ -1,9 +1,8 @@
 import { Response } from 'express';
 import { db } from '../../utils/db.js';
 import { throwError } from '../../utils/throw-error.js';
-import getMetaData from 'metadata-scraper';
 import axios from 'axios';
-import * as cheerio from 'cheerio';
+import cheerio from 'cheerio';
 
 const createPost = async (
     _: unknown,
