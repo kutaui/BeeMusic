@@ -127,7 +127,6 @@ export default function ProfileCard({
                     <AvatarImage
                       src={avatarMap[user.avatar]}
                       alt={`${user.username}'s Avatar`}
-                      className=""
                     />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
@@ -136,7 +135,7 @@ export default function ProfileCard({
               ))}
             </div>
           </DialogContent>
-        </Dialog>{" "}
+        </Dialog>
         <Dialog>
           <DialogTrigger>
             <h3 className="hover:underline hover:cursor-pointer font-semibold">
@@ -157,7 +156,6 @@ export default function ProfileCard({
                     <AvatarImage
                       src={avatarMap[user.avatar]}
                       alt={`${user.username}'s Avatar`}
-                      className=""
                     />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
