@@ -16,22 +16,22 @@ export const metadata: Metadata = {
   icons: { icon: "/icons/bee-icon.png" },
   authors: [
     {
-      name: "Kutaui",
-      url: "https://www.kutaybekleric.com/",
+      name: "kutaui",
+      url: "https://kutay.boo",
     },
   ],
   keywords: [
     "music",
     "sharing",
     "social",
-    "media",
-    "bee",
+    "kutaui",
+    "kutay",
     "bee music",
     "beemusic",
     "nextjs",
     "graphql",
   ],
-  creator: "Kutaui",
+  creator: "kutaui",
 };
 
 
