@@ -14,12 +14,16 @@ export const metadata: Metadata = {
   title: "BeeMusic",
   description: "Share your music with the world",
   icons: { icon: "/icons/bee-icon.png" },
-  authors: [
-    {
-      name: "kutaui",
-      url: "https://kutay.boo",
-    },
-  ],
+authors: [
+		{
+			name: 'kutaui',
+			url: 'https://kutay.boo',
+		},
+		{
+			name: 'kutay bekleric',
+			url: 'https://kutaybekleric.com',
+		},
+	],
   keywords: [
     "music",
     "sharing",
