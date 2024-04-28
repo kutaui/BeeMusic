@@ -4,6 +4,7 @@ import { Providers } from "@/components/providers";
 import { Toaster } from "@/components/ui/toaster";
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
 import { __DEV__ } from "@apollo/client/utilities/globals";
+import Script from 'next/script'
 
 if (__DEV__) {
   // Adds messages only in a dev environment
@@ -52,6 +53,7 @@ export default function RootLayout({
           <Toaster />
         </body>
       </Providers>
+        <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
     </html>
   );
 }
